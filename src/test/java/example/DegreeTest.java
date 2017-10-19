@@ -28,19 +28,11 @@ public class DegreeTest {
                 );
                 Session session = driver.session()
         ) {
-            // Given I've started Neo4j with the FullTextIndex procedure class
-            //       which my 'neo4j' rule above does.
-            // And given I have a node in the database
-            long nodeId1 = session.run("CREATE (p:User {name:'Brookreson'}) RETURN id(p)")
-                    .single()
-                    .get(0).asLong();
+            String label = "User";
+            session.run("CREATE (p:User {name:'Brookreson'})", parameters("label", label));
 
-            long nodeId2 = session.run("CREATE (p:User {name:'William'}) RETURN id(p)")
-                    .single()
-                    .get(0).asLong();
+            StatementResult result1 = session.run("CALL example.degree('{label}')", parameters("label", label));
 
-            StatementResult result1 = session.run("CALL example.degree({id})", parameters("id", nodeId1));
-//            StatementResult result2 = session.run("CALL example.degree({id})", parameters("id", nodeId2));
             assertThat(result1.single().get("degree").asInt(), equalTo(0));
         }
     }
