@@ -2,9 +2,13 @@ package example;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.logging.Log;
 import org.neo4j.procedure.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Degree {
@@ -14,23 +18,27 @@ public class Degree {
     @Context
     public Log log;
 
-//    private static final Map<String, >
-
     @Procedure(value = "example.degree", mode = Mode.READ)
     @Description("Calculate degree of vertex")
     public Stream<DegreeResults> degree(@Name("label") String label) {
-        String index = "label-" + label;
+        Label ind = Label.label(label);
+        ResourceIterator<Node> nodes = db.findNodes(ind);
 
-        if (!db.index().existsForNodes(index)) {
-            log.debug("Skipping since index does not exist: `%s`", index);
+        if (nodes == null) {
+            log.debug("Skipping since index does not exist: `%s`", label);
             return Stream.empty();
         }
 
-        Label ind = Label.label(label);
+        List<DegreeResults> a = new ArrayList<>();
 
-        return db.findNodes(ind).stream().map(DegreeResults::new);
+        while(nodes.hasNext()) {
+            final Node recordNode = nodes.next();
+            DegreeResults t = new DegreeResults(recordNode.getDegree(),recordNode.getId());
+            a.add(t);
+        }
+
+        return a.stream();
     }
-
 
     public class DegreeResults {
         public final Integer degree;
