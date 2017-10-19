@@ -19,7 +19,7 @@ public class DegreeTest {
             .withFunction(Degree.class);
 
     @Test
-    public void shouldAllowIndexingAndFindingANode() throws Throwable {
+    public void shouldCalculateDegree() throws Throwable {
         // In a try-block, to make sure we close the driver and session after the test
         try (
                 Driver driver = GraphDatabase.driver(

@@ -33,7 +33,7 @@ public class Degree {
 
         while (nodes.hasNext()) {
             final Node recordNode = nodes.next();
-            DegreeResults t = new DegreeResults(recordNode.getDegree(), recordNode.getId());
+            DegreeResults t = new DegreeResults(recordNode.getId(), recordNode.getDegree());
             a.add(t);
         }
 
@@ -46,10 +46,14 @@ public class Degree {
     }
 
     public class DegreeResults {
-        public final long degree;
         public final long nodes;
+        public final long degree;
 
-        public DegreeResults(long degree, long nodes) {
+        /**
+         * @param nodes  node id
+         * @param degree node degree
+         */
+        public DegreeResults(long nodes, long degree) {
             this.degree = degree;
             this.nodes = nodes;
         }
