@@ -1,4 +1,4 @@
-package example;
+package lego;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class DegreeTest {
         ) {
             session.run("CREATE (p:User {name:'Brookreson'})");
 
-            StatementResult result1 = session.run("CALL example.degree('User')");
+            StatementResult result1 = session.run("CALL lego.degree('User')");
 
             assertThat(result1.single().get("degree").asInt(), equalTo(0));
         }

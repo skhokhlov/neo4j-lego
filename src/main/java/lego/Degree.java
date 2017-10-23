@@ -1,4 +1,4 @@
-package example;
+package lego;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
@@ -23,11 +23,11 @@ public class Degree {
      *
      * @param label label name
      */
-    @Procedure(value = "example.degree", mode = Mode.READ)
+    @Procedure(value = "lego.degree", mode = Mode.READ)
     @Description("Calculate degree of vertex")
     public Stream<DegreeResults> degree(@Name("label") String label) {
         final Label ind = Label.label(label);
-        final ResourceIterator<Node> nodes = db.findNodes(ind);
+        ResourceIterator<Node> nodes = db.findNodes(ind);
 
         List<DegreeResults> a = new ArrayList<>();
 
