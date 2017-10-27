@@ -29,20 +29,7 @@ public class Degree {
         final Label ind = Label.label(label);
         ResourceIterator<Node> nodes = db.findNodes(ind);
 
-        List<DegreeResults> a = new ArrayList<>();
-
-        while (nodes.hasNext()) {
-            final Node recordNode = nodes.next();
-            DegreeResults t = new DegreeResults(recordNode.getId(), recordNode.getDegree());
-            a.add(t);
-        }
-
-        if (a.isEmpty()) {
-            log.debug("Skipping since index does not exist: `%s`", label);
-            return Stream.empty();
-        }
-
-        return a.stream();
+        return nodes.stream().map((n) -> new DegreeResults(n.getId(), n.getDegree()));
     }
 
     public class DegreeResults {
