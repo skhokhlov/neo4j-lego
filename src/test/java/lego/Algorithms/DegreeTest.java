@@ -13,9 +13,21 @@ import static org.junit.Assert.*;
 
 public class DegreeTest {
     @Test
-    public void shouldSetDirection() throws Exception {
+    public void shouldSetBothDirection() throws Exception {
         Degree degree = new Degree().withDirection(Direction.BOTH);
         assertThat(degree.getDirection(), equalTo(Direction.BOTH));
+    }
+    
+    @Test
+    public void shouldSetIncomingDirection() throws Exception {
+        Degree degree = new Degree().withDirection(Direction.INCOMING);
+        assertThat(degree.getDirection(), equalTo(Direction.INCOMING));
+    }
+    
+    @Test
+    public void shouldSetOutgoingDirection() throws Exception {
+        Degree degree = new Degree().withDirection(Direction.OUTGOING);
+        assertThat(degree.getDirection(), equalTo(Direction.OUTGOING));
     }
 
     @Test

@@ -13,6 +13,15 @@ public class GraphTest {
         graph.addEdge(edge);
         assertThat(graph.containsEdge(edge), equalTo(true));
     }
+    
+    @Test
+    public void shouldAddEdgeToGraphWithPipeline() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(3,4);
+        graph.addEdge(edge1).addEdge(edge2);
+        assertThat(graph.containsEdge(edge1)&&graph.containsEdge(edge2), equalTo(true));
+    }
 
     @Test
     public void shouldRemoveEdgeFromGraph() throws Exception {

@@ -52,7 +52,7 @@ public class Graph {
     }
 
     public boolean containsVertex(long id) {
-        return this.getStream().anyMatch(edge -> (edge.start == id || edge.end == id));
+        return this.getStream().anyMatch(edge -> edge.containsVertex(id));
     }
 
 }

@@ -1,8 +1,8 @@
 package lego;
 
 public class Edge {
-    public final long start;
-    public final long end;
+    private final long start;
+    private final long end;
 
     public Edge(long s, long t) {
         start = s;
