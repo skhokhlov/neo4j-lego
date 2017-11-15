@@ -2,7 +2,6 @@ package lego;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -20,16 +19,36 @@ public class Graph {
         return edges.parallelStream();
     }
 
-    public void addEdge(Edge edge) {
-        edges.add(edge);
+    public Stream<Long> getVertexStream() {
+        Collection<Long> vertices = new ArrayList<>();
+        this.getParallelStream().forEach(edge -> {
+            if (!vertices.contains(edge.getStart())) {
+                vertices.add(edge.getStart());
+            }
+            if (!vertices.contains(edge.getEnd())) {
+                vertices.add(edge.getEnd());
+            }
+        });
+
+        return vertices.stream();
     }
 
-    public void removeEdge(Edge edge) {
+    public Stream<Long> getParallelVertexStream() {
+        return this.getVertexStream().parallel();
+    }
+
+    public Graph addEdge(Edge edge) {
+        edges.add(edge);
+        return this;
+    }
+
+    public Graph removeEdge(Edge edge) {
         edges.remove(edge);
+        return this;
     }
 
     public boolean containsEdge(Edge edge) {
-        return this.getStream().anyMatch(edge1 -> edge == edge1);
+        return this.getStream().anyMatch(edge::equals);
     }
 
     public boolean containsVertex(long id) {

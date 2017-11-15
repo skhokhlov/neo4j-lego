@@ -1,6 +1,5 @@
 package lego;
 
-import org.junit.Rule;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
