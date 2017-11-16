@@ -6,6 +6,10 @@ import lego.Results.DegreeResult;
 
 import java.util.stream.Stream;
 
+/**
+ * Class for calculating degree of vertices with specific direction (both, incoming, outgoing).
+ * Can calculate degree for one vertex and for all vertices in graph.
+ */
 public class Degree {
     private Direction direction = Direction.OUTGOING;
 
@@ -16,10 +20,10 @@ public class Degree {
     /**
      * Set direction param
      *
-     * @param direction
-     * @return
+     * @param direction edge directions for degree calculation
+     * @return Direction
      */
-    public Degree withDirection(Direction direction) {
+    public Degree setDirection(Direction direction) {
         this.direction = direction;
         return this;
     }
@@ -28,9 +32,9 @@ public class Degree {
     /**
      * Calculate degree for specific vertex in graph with specific direction
      *
-     * @param graph
-     * @param vertexId
-     * @return
+     * @param graph    graph for calculations
+     * @param vertexId id of vertex
+     * @return degree of vertex
      */
     public long getVertexScore(Graph graph, long vertexId) {
         if (!graph.containsVertex(vertexId)) {
@@ -47,10 +51,12 @@ public class Degree {
     }
 
     /**
-     * Calculate degree for each vertex in graph with specific direction and return stream of lego.Results.DegreeResult class
+     * Calculate degree for each vertex in graph with specific direction
+     * and return stream of lego.Results.DegreeResult class.
+     * Calculating with concurrency via parallel stream.
      *
-     * @param graph
-     * @return
+     * @param graph graph for calculations
+     * @return Stream\<DegreeResult\> with scores
      */
     public Stream<DegreeResult> getScores(Graph graph) {
         return graph.getParallelVertexStream().map(vertex -> new DegreeResult(vertex, getVertexScore(graph, vertex))); // It seems not efficient

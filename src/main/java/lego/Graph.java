@@ -5,23 +5,34 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
- * Interface of graph
+ * Class of graph.
+ * Based on storage of edges via ArrayList\<Edge\>.
  */
 public class Graph {
     //    List<Long> edges = new ArrayList<>(); // Array with pairs of edges
     private Collection<Edge> edges = new ArrayList<>();
 
+    /**
+     * @return stream of Edge
+     */
     public Stream<Edge> getStream() {
         return edges.stream();
     }
 
+    /**
+     * @return parallel stream of Edge
+     */
     public Stream<Edge> getParallelStream() {
         return edges.parallelStream();
     }
 
+    /**
+     * Make Stream of vertex ids
+     * @return Stream\<Long\>
+     */
     public Stream<Long> getVertexStream() {
         Collection<Long> vertices = new ArrayList<>();
-        this.getParallelStream().forEach(edge -> {
+        this.getParallelStream().forEach(edge -> { //TODO: Check that it works correctly. ArrayList is not synchronized
             if (!vertices.contains(edge.getStart())) {
                 vertices.add(edge.getStart());
             }
@@ -33,24 +44,53 @@ public class Graph {
         return vertices.stream();
     }
 
+    /**
+     * Parallel stream of getVertexStream()
+     *
+     * @return parallel stream of vertex ids
+     */
     public Stream<Long> getParallelVertexStream() {
         return this.getVertexStream().parallel();
     }
 
+    /**
+     * Add new edge to graph and return them
+     *
+     * @param edge added vertex
+     * @return this graph
+     */
     public Graph addEdge(Edge edge) {
         edges.add(edge);
         return this;
     }
 
+    /**
+     * Remove edge from graph and return them
+     *
+     * @param edge removed vertex
+     * @return this graph
+     */
     public Graph removeEdge(Edge edge) {
         edges.remove(edge);
         return this;
     }
 
+    /**
+     * Check that graph contains edge
+     *
+     * @param edge checked edge
+     * @return boolean
+     */
     public boolean containsEdge(Edge edge) {
         return this.getStream().anyMatch(edge::equals);
     }
 
+    /**
+     * Check that graph contains vertex
+     *
+     * @param id vertex id
+     * @return boolean
+     */
     public boolean containsVertex(long id) {
         return this.getStream().anyMatch(edge -> edge.containsVertex(id));
     }
