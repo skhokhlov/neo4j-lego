@@ -28,11 +28,13 @@ public class Graph {
 
     /**
      * Make Stream of vertex ids
+     * TODO: Check that it works correctly. ArrayList is not synchronized. Maybe need to use not parallel stream
+     *
      * @return Stream\<Long\>
      */
     public Stream<Long> getVertexStream() {
         Collection<Long> vertices = new ArrayList<>();
-        this.getParallelStream().forEach(edge -> { //TODO: Check that it works correctly. ArrayList is not synchronized
+        this.getParallelStream().forEach(edge -> {
             if (!vertices.contains(edge.getStart())) {
                 vertices.add(edge.getStart());
             }
