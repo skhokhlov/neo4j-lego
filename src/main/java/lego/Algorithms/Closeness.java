@@ -39,7 +39,7 @@ public class Closeness {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }
 
-        long sum = graph.getVertexStream().mapToLong(vertex -> BFS.getPathLength(graph, vertex, vertexId)).sum();
+        long sum = graph.getVertexStream().mapToLong(vertex -> BFS.getPathLength(graph, vertexId, vertex)).sum();
 
         return 1 / sum;
     }

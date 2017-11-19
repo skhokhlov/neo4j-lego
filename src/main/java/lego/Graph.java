@@ -2,6 +2,8 @@ package lego;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -53,6 +55,36 @@ public class Graph {
      */
     public Stream<Long> getParallelVertexStream() {
         return this.getVertexStream().parallel();
+    }
+
+    /**
+     * Make list of incident edges for vertex
+     *
+     * @param vertexId vertex id
+     * @return list with edges
+     */
+    public List<Edge> getIncidentEdges(long vertexId) {
+        return this.getStream().filter(edge -> edge.containsVertex(vertexId)).collect(Collectors.toList());
+    }
+
+    /**
+     * Make list of outgoing edges for vertex
+     *
+     * @param vertexId vertex id
+     * @return list with edges
+     */
+    public List<Edge> getOutgoingEdges(long vertexId) {
+        return this.getStream().filter(edge -> edge.getStart() == vertexId).collect(Collectors.toList());
+    }
+
+    /**
+     * Make list of adjacent vertices by outgoing edges
+     *
+     * @param vertexId vertex id
+     * @return list with adjacent vertices
+     */
+    public List<Long> getAdjacentVertices(long vertexId) {
+        return this.getStream().filter(edge -> edge.getStart() == vertexId).map(Edge::getEnd).collect(Collectors.toList());
     }
 
     /**

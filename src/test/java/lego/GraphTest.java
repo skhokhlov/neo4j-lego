@@ -1,6 +1,11 @@
 package lego;
 
 import org.junit.Test;
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.E;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
@@ -30,6 +35,21 @@ public class GraphTest {
         graph.addEdge(edge);
         graph.removeEdge(edge);
         assertThat(graph.containsEdge(edge), equalTo(false));
+    }
+
+    @Test
+    public void shouldReturnStream() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(1,3);
+        Edge edge3 = new Edge(2,1);
+        graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
+        List<Edge> res = new ArrayList<>();
+        res.add(edge1);
+        res.add(edge2);
+        res.add(edge3);
+        assertThat(graph.getStream().collect(Collectors.toList()), equalTo(res));
+
     }
 
     @Test
@@ -66,5 +86,43 @@ public class GraphTest {
     public void shouldReturnParallelStream() throws Exception {
         Graph graph = new Graph();
         assertThat(graph.getParallelStream().isParallel(), equalTo(true));
+    }
+
+    @Test
+    public void shouldReturnListWithAdjacentVertices() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(1,3);
+        Edge edge3 = new Edge(2,4);
+        graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
+        List<Long> res = new ArrayList<>();
+        res.add(2L);
+        res.add(3L);
+        assertThat(graph.getAdjacentVertices(1), equalTo(res));
+    }
+
+    @Test
+    public void shouldReturnListWithOutgoingEdges() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(1,3);
+        Edge edge3 = new Edge(2,1);
+        graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
+        List<Edge> res = new ArrayList<>();
+        res.add(edge1);
+        res.add(edge2);
+        assertThat(graph.getOutgoingEdges(1), equalTo(res));
+    }
+
+    @Test
+    public void shouldReturnListWithIncidentEdges() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(2,1);
+        graph.addEdge(edge1).addEdge(edge2);
+        List<Edge> res = new ArrayList<>();
+        res.add(edge1);
+        res.add(edge2);
+        assertThat(graph.getIncidentEdges(1), equalTo(res));
     }
 }
