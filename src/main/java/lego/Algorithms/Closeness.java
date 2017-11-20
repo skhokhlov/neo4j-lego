@@ -49,7 +49,6 @@ public class Closeness {
     /**
      * Calculate closeness centrality for each vertex in graph
      * and return stream of lego.Results.ClosenessResult class.
-     * Calculating with concurrency via parallel stream.
      *
      * @param graph graph for calculations
      * @return Stream\<ClosenessResult\> with scores

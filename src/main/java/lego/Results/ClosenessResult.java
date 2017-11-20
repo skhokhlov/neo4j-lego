@@ -2,14 +2,14 @@ package lego.Results;
 
 public class ClosenessResult {
     public final long nodes;
-    public final double degree;
+    public final double centrality;
 
     /**
      * @param nodes  node id
      * @param degree node score
      */
-    public ClosenessResult(long nodes, double degree) {
-        this.degree = degree;
+    public ClosenessResult(long nodes, double centrality) {
+        this.centrality = centrality;
         this.nodes = nodes;
     }
 
