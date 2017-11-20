@@ -15,7 +15,7 @@ public class ClosenessTest {
         Edge edge2 = new Edge(2, 1);
         Edge edge3 = new Edge(3, 1);
         graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
-        assertThat(new Closeness().getVertexScore(graph, 3), equalTo(0.5));
+        assertThat(new Closeness().getVertexScore(graph, 3), equalTo(1d / 3d));
     }
 
 }

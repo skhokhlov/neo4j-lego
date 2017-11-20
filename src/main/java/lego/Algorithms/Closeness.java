@@ -39,9 +39,11 @@ public class Closeness {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }
 
-        long sum = graph.getVertexStream().mapToLong(vertex -> BFS.getPathLength(graph, vertexId, vertex)).sum();
+        BFS bfs = new BFS(graph);
 
-        return 1 / sum;
+        long sum = graph.getParallelVertexStream().mapToLong(vertex -> bfs.getPathLength(vertexId, vertex)).sum();
+
+        return 1 / (double) sum;
     }
 
     /**
@@ -53,6 +55,6 @@ public class Closeness {
      * @return Stream\<ClosenessResult\> with scores
      */
     public Stream<ClosenessResult> getScores(Graph graph) {
-        return graph.getParallelVertexStream().map(vertex -> new ClosenessResult(vertex, getVertexScore(graph, vertex)));
+        return graph.getVertexStream().map(vertex -> new ClosenessResult(vertex, getVertexScore(graph, vertex)));
     }
 }

@@ -6,16 +6,21 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.*;
 
 public class BFS {
+    private Graph graph = new Graph();
+
+    BFS(Graph graph) {
+        this.graph = graph;
+    }
+
     /**
      * Calculate length of shortest path between vertices using breadth-first search algorithm.
      * Works with OUTGOING edges
      *
-     * @param graph  graph
      * @param start  start vertex
      * @param target target vertex
      * @return length of shortest path between vertices
      */
-    public static long getPathLength(Graph graph, long start, long target) {
+    public long getPathLength(long start, long target) {
         if (start == target) {
             return 0L;
         }
