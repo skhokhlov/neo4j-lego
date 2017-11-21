@@ -22,7 +22,7 @@ public class ClosenessTest {
     }
 
     @Test
-    public void shouldClaculateClosenessForEachVertex() throws Exception {
+    public void shouldCalculateClosenessForEachVertex() throws Exception {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 1);

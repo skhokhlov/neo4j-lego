@@ -1,7 +1,6 @@
 package lego;
 
 import org.junit.Test;
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.E;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class GraphTest {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
-        assertThat(graph.containsEdge(edge), equalTo(true));
+        assertTrue(graph.containsEdge(edge));
     }
     
     @Test
@@ -25,7 +24,7 @@ public class GraphTest {
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(3,4);
         graph.addEdge(edge1).addEdge(edge2);
-        assertThat(graph.containsEdge(edge1)&&graph.containsEdge(edge2), equalTo(true));
+        assertTrue(graph.containsEdge(edge1)&&graph.containsEdge(edge2));
     }
 
     @Test
@@ -34,7 +33,7 @@ public class GraphTest {
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
         graph.removeEdge(edge);
-        assertThat(graph.containsEdge(edge), equalTo(false));
+        assertFalse(graph.containsEdge(edge));
     }
 
     @Test
@@ -57,14 +56,14 @@ public class GraphTest {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
-        assertThat(graph.containsVertex(1), equalTo(true));
+        assertTrue(graph.containsVertex(1));
     }
 
     @Test
     public void shouldCheckThatGraphDoNotContainsVertex() throws Exception {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
-        assertThat(graph.containsVertex(9999), equalTo(false));
+        assertFalse(graph.containsVertex(9999));
     }
 
     @Test
@@ -72,20 +71,20 @@ public class GraphTest {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
-        assertThat(graph.containsEdge(edge), equalTo(true));
+        assertTrue(graph.containsEdge(edge));
     }
 
     @Test
     public void shouldCheckThatGraphDoNotContainsEdge() throws Exception {
         Graph graph = new Graph();
         Edge tempEdge = new Edge(2,3);
-        assertThat(graph.containsEdge(tempEdge), equalTo(false));
+        assertFalse(graph.containsEdge(tempEdge));
     }
 
     @Test
     public void shouldReturnParallelStream() throws Exception {
         Graph graph = new Graph();
-        assertThat(graph.getParallelStream().isParallel(), equalTo(true));
+        assertTrue(graph.getParallelStream().isParallel());
     }
 
     @Test
