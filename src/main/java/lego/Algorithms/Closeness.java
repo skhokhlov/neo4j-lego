@@ -48,10 +48,10 @@ public class Closeness {
 
     /**
      * Calculate closeness centrality for each vertex in graph
-     * and return stream of lego.Results.ClosenessResult class.
+     * and return stream of {@link ClosenessResult} class.
      *
      * @param graph graph for calculations
-     * @return Stream\<ClosenessResult\> with scores
+     * @return Stream\<{@link ClosenessResult}\> with scores
      */
     public Stream<ClosenessResult> getScores(Graph graph) {
         return graph.getVertexStream().map(vertex -> new ClosenessResult(vertex, getVertexScore(graph, vertex)));

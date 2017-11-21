@@ -6,7 +6,7 @@ public class ClosenessResult {
 
     /**
      * @param nodes  node id
-     * @param degree node score
+     * @param centrality node score
      */
     public ClosenessResult(long nodes, double centrality) {
         this.centrality = centrality;

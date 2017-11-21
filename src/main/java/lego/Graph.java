@@ -8,21 +8,21 @@ import java.util.stream.Stream;
 
 /**
  * Class of graph.
- * Based on storage of edges via ArrayList\<Edge\>.
+ * Based on storage of edges via ArrayList\<{@link Edge}\>.
  */
 public class Graph {
     //    List<Long> edges = new ArrayList<>(); // Array with pairs of edges
     private Collection<Edge> edges = new ArrayList<>();
 
     /**
-     * @return stream of Edge
+     * @return stream of {@link Edge}
      */
     public Stream<Edge> getStream() {
         return edges.stream();
     }
 
     /**
-     * @return parallel stream of Edge
+     * @return parallel stream of {@link Edge}
      */
     public Stream<Edge> getParallelStream() {
         return edges.parallelStream();

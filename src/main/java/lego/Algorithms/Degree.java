@@ -52,11 +52,11 @@ public class Degree {
 
     /**
      * Calculate degree for each vertex in graph with specific direction
-     * and return stream of lego.Results.DegreeResult class.
+     * and return stream of {@link DegreeResult} class.
      * Calculating with concurrency via parallel stream.
      *
      * @param graph graph for calculations
-     * @return Stream\<DegreeResult\> with scores
+     * @return Stream\<{@link DegreeResult}\> with scores
      */
     public Stream<DegreeResult> getScores(Graph graph) {
         return graph.getParallelVertexStream().map(vertex -> new DegreeResult(vertex, getVertexScore(graph, vertex))); // It seems not efficient
