@@ -56,7 +56,7 @@ public class Degree {
      * Calculating with concurrency via parallel stream.
      *
      * @param graph graph for calculations
-     * @return Stream\<{@link DegreeResult}\> with scores
+     * @return Stream of {@link DegreeResult} with scores
      */
     public Stream<DegreeResult> getScores(Graph graph) {
         return graph.getParallelVertexStream().map(vertex -> new DegreeResult(vertex, getVertexScore(graph, vertex))); // It seems not efficient

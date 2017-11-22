@@ -3,7 +3,6 @@ package lego.Algorithms;
 import lego.Direction;
 import lego.Graph;
 import lego.Results.ClosenessResult;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.stream.Stream;
 
@@ -22,9 +21,8 @@ public class Closeness {
      * @return Direction
      */
     public Closeness setDirection(Direction direction) {
-        throw new NotImplementedException();
-//        this.direction = direction;
-//        return this;
+        this.direction = direction;
+        return this;
     }
 
     /**
@@ -51,7 +49,7 @@ public class Closeness {
      * and return stream of {@link ClosenessResult} class.
      *
      * @param graph graph for calculations
-     * @return Stream\<{@link ClosenessResult}\> with scores
+     * @return Stream of {@link ClosenessResult} with scores
      */
     public Stream<ClosenessResult> getScores(Graph graph) {
         return graph.getVertexStream().map(vertex -> new ClosenessResult(vertex, getVertexScore(graph, vertex)));

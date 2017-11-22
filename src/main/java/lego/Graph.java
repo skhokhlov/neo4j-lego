@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * Class of graph.
- * Based on storage of edges via ArrayList\<{@link Edge}\>.
+ * Based on storage of edges via ArrayList with {@link Edge}.
  */
 public class Graph {
     //    List<Long> edges = new ArrayList<>(); // Array with pairs of edges
@@ -32,7 +32,7 @@ public class Graph {
      * Make Stream of vertex ids
      * TODO: Check that it works correctly. ArrayList is not synchronized. Maybe need to use not parallel stream
      *
-     * @return Stream\<Long\>
+     * @return Stream of Long
      */
     public Stream<Long> getVertexStream() {
         Collection<Long> vertices = new ArrayList<>();

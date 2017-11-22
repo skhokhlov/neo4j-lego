@@ -3,7 +3,7 @@ package lego;
 /**
  * Example graph for tests.
  * Nodes label: User. Vertices: A, B, C, D, E.
- * Relationships: A->B, B->C, B->E, C->D, E->D.
+ * Relationships: A-TO-B, B-TO-C, B-TO-E, C-TO-D, E-TO-D.
  */
 public class Example {
     final private String label = "User";
