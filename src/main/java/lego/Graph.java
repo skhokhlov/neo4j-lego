@@ -14,6 +14,18 @@ public class Graph {
     //    List<Long> edges = new ArrayList<>(); // Array with pairs of edges
     private Collection<Edge> edges = new ArrayList<>();
 
+    public Graph() {
+        this.edges = new ArrayList<>();
+    }
+
+    public Graph(Graph graph) {
+        this.edges = graph.edges;
+    }
+
+    public boolean isEmpty() {
+        return edges.isEmpty();
+    }
+
     /**
      * @return stream of {@link Edge}
      */
