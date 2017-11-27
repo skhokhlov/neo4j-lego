@@ -18,11 +18,11 @@ public class Example {
             "CREATE (B)-[:TO]->(E)\n" +
             "CREATE (C)-[:TO]->(D)\n" +
             "CREATE (E)-[:TO]->(D)";
-    final private Graph exampleGraph = new Graph().addEdge(new Edge(1, 2))
+    final private Graph exampleGraph = new Graph().addEdge(new Edge(0, 1))
+            .addEdge(new Edge(1, 2))
+            .addEdge(new Edge(1, 4))
             .addEdge(new Edge(2, 3))
-            .addEdge(new Edge(2, 5))
-            .addEdge(new Edge(3, 4))
-            .addEdge(new Edge(5, 4));
+            .addEdge(new Edge(4, 3));
 
     public String getGraphStatement() {
         return exampleGraphStatement;
