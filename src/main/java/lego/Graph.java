@@ -26,6 +26,10 @@ public class Graph {
         return edges.isEmpty();
     }
 
+    public long size() {
+        return edges.size();
+    }
+
     /**
      * @return stream of {@link Edge}
      */
