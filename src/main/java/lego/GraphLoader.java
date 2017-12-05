@@ -1,9 +1,6 @@
 package lego;
 
 import org.neo4j.graphdb.*;
-//import org.neo4j.kernel.internal.GraphDatabaseAPI;
-
-import java.util.Objects;
 
 /**
  * Interface for providing {@link Graph}.
@@ -11,21 +8,37 @@ import java.util.Objects;
 public class GraphLoader {
     private GraphDatabaseService db;
     private ResourceIterable<Relationship> relationshipResourceIterator;
-    //    private GraphDatabaseAPI api;
-    private String label;
+    private String label = null;
     private Graph graph = new Graph();
 
-    public GraphLoader(GraphDatabaseService db) {
-        this.db = Objects.requireNonNull(db);
+    public GraphLoader(GraphDatabaseService db, String label) {
+        this.label = label;
+
+        try (Transaction tx = db.beginTx()) {
+            for (Relationship relationship : db.getAllRelationships()) {
+                final Node startNode = relationship.getStartNode();
+                final Node endNode = relationship.getEndNode();
+                if (hasLabel(startNode) && hasLabel(endNode)) {
+                    this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
+                }
+            }
+            tx.close();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
-    public GraphLoader(ResourceIterable<Relationship> relationshipResourceIterator) {
-        this.relationshipResourceIterator = relationshipResourceIterator;
-    }
+    public GraphLoader(ResourceIterable<Relationship> relationshipResourceIterator, String label) {
+        this.label = label;
+        for (Relationship relationship : relationshipResourceIterator) {
+            final Node startNode = relationship.getStartNode();
+            final Node endNode = relationship.getEndNode();
+            if (hasLabel(startNode) && hasLabel(endNode)) {
+                this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
+            }
 
-//    public GraphLoader(GraphDatabaseAPI api) {
-//        this.api = Objects.requireNonNull(api);
-//    }
+        }
+    }
 
     public GraphLoader withLabel(String label) {
         this.label = label;
@@ -57,14 +70,14 @@ public class GraphLoader {
 //            throw e;
 //        }
 //        try (Transaction tx = db.beginTx()) {
-        for (Relationship relationship : relationshipResourceIterator) {
-            final Node startNode = relationship.getStartNode();
-            final Node endNode = relationship.getEndNode();
-            if (hasLabel(startNode) && hasLabel(endNode)) {
-                this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
-            }
-
-        }
+//        for (Relationship relationship : relationshipResourceIterator) {
+//            final Node startNode = relationship.getStartNode();
+//            final Node endNode = relationship.getEndNode();
+//            if (hasLabel(startNode) && hasLabel(endNode)) {
+//                this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
+//            }
+//
+//        }
 //            for (Relationship relationship : db.getAllRelationships()) {
 //                final Node startNode = relationship.getStartNode();
 //                final Node endNode = relationship.getEndNode();
@@ -96,6 +109,9 @@ public class GraphLoader {
      * @return Returns true if node has label
      */
     private boolean hasLabel(Node node) {
+        if (label.isEmpty()) {
+            return true;
+        }
         for (Object o : node.getLabels()) {
             if (o.toString().equals(label)) {
                 return true;
