@@ -39,4 +39,10 @@ public class ClosenessTest {
         );
     }
 
+    @Test
+    public void shouldWorkCorrectlyIfGraphIsEmpty() throws Exception {
+        Graph graph = new Graph();
+        assertThat(new Closeness().getScores(graph).count(), equalTo(0L));
+    }
+
 }

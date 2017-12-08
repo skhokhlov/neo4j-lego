@@ -14,7 +14,7 @@ public class GraphLoader {
     public GraphLoader(GraphDatabaseService db, String label) {
         this.label = label;
 
-        try (Transaction tx = db.beginTx()) {
+//        try (Transaction tx = db.beginTx()) {
             for (Relationship relationship : db.getAllRelationships()) {
                 final Node startNode = relationship.getStartNode();
                 final Node endNode = relationship.getEndNode();
@@ -22,10 +22,10 @@ public class GraphLoader {
                     this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
                 }
             }
-            tx.close();
-        } catch (Exception e) {
-            throw e;
-        }
+//            tx.close();
+//        } catch (Exception e) {
+//            throw e;
+//        }
     }
 
     public GraphLoader(ResourceIterable<Relationship> relationshipResourceIterator, String label) {
@@ -40,6 +40,7 @@ public class GraphLoader {
         }
     }
 
+    @Deprecated
     public GraphLoader withLabel(String label) {
         this.label = label;
         return this;
