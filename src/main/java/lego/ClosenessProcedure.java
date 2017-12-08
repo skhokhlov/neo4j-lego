@@ -17,7 +17,7 @@ public class ClosenessProcedure {
     @Procedure(value = "lego.closeness", mode = Mode.READ)
     @Description("Calculate Closeness centrality")
     public Stream<ClosenessResult> closeness(@Name("label") String label) {
-        Graph graph = new GraphLoader(db, label).withLabel(label).load();
+        Graph graph = new GraphLoader(db, label).load();
         return new Closeness().getScores(graph);
     }
 

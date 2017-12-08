@@ -46,20 +46,20 @@ public class Graph {
 
     /**
      * Make Stream of vertex ids
-     * TODO: Check that it works correctly. ArrayList is not synchronized. Maybe need to use not parallel stream
      *
      * @return Stream of Long
      */
     public Stream<Long> getVertexStream() {
         Collection<Long> vertices = new ArrayList<>();
-        this.getParallelStream().forEach(edge -> {
+
+        for (Edge edge : edges) {
             if (!vertices.contains(edge.getStart())) {
                 vertices.add(edge.getStart());
             }
             if (!vertices.contains(edge.getEnd())) {
                 vertices.add(edge.getEnd());
             }
-        });
+        }
 
         return vertices.stream();
     }

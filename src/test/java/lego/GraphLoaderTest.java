@@ -2,10 +2,8 @@ package lego;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.neo4j.driver.v1.Config;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.*;
+import org.neo4j.graphdb.Transaction;
 import org.neo4j.harness.junit.Neo4jRule;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -28,9 +26,11 @@ public class GraphLoaderTest {
                 Session session = driver.session()
         ) {
             session.run(example.getGraphStatement());
-            GraphLoader loader = new GraphLoader(neo4j.getGraphDatabaseService(), example.getLabel()).withLabel(example.getLabel());
-
-            assertThat(loader.getLabel(), equalTo(example.getLabel()));
+            try (Transaction tx = neo4j.getGraphDatabaseService().beginTx()) {
+                GraphLoader loader = new GraphLoader(neo4j.getGraphDatabaseService(), example.getLabel()).withLabel(example.getLabel());
+                assertThat(loader.getLabel(), equalTo(example.getLabel()));
+                tx.close();
+            }
         }
     }
 
@@ -45,9 +45,14 @@ public class GraphLoaderTest {
         ) {
             session.run(example.getGraphStatement());
             int a = session.run("Match (n) return n").list().size(); // If it in not here test not works
-
-            Graph graph = new GraphLoader(neo4j.getGraphDatabaseService(), example.getLabel()).load();
-            assertThat(graph.getVertexStream().sorted().toArray(), equalTo(example.getGraph().getVertexStream().sorted().toArray()));
+            try (Transaction tx = neo4j.getGraphDatabaseService().beginTx()) {
+                Graph graph = new GraphLoader(neo4j.getGraphDatabaseService(), example.getLabel()).load();
+                assertThat(
+                        graph.getVertexStream().sorted().toArray(),
+                        equalTo(example.getGraph().getVertexStream().sorted().toArray())
+                );
+                tx.close();
+            }
 
         }
     }
