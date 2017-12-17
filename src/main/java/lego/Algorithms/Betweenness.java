@@ -3,8 +3,10 @@ package lego.Algorithms;
 import lego.Graph;
 import lego.Results.ClosenessResult;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Betweenness {
@@ -30,7 +32,7 @@ public class Betweenness {
             for (Iterator<Long> it2 = graph.getVertexStream().iterator(); it2.hasNext(); ) {
                 long t = it2.next();
 
-                Stream<HashSet<Long>> paths = bfs.getAllShortestPaths(s, t);
+                Stream<List<Long>> paths = bfs.getAllShortestPaths(s, t);
                 allPaths += paths.count();
 
                 // Find paths that contains target vertex

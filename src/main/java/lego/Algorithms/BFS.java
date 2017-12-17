@@ -51,62 +51,67 @@ public class BFS {
         return 0L;
     }
 
+
+    private static Object mock = new Object();
     /**
      * Find all shortest paths between two vertices in graph.
      *
-     * @param start start vertex
-     * @param target target vertex
+     * @param from  start vertex
+     * @param to target vertex
      * @return stream of shortest paths
      */
-//    public Stream<HashSet<Long>> getAllShortestPaths(long start, long target) {
-//        Queue<Long> queue = new LinkedList<>();
-//        Map<Long, Long> destinations = new HashMap<>();
-//        HashSet<Long>[] prev = new HashSet[graph.size()]; // need array, int too small
-//        queue.add(start);
-//        destinations.put(start, 0L);
-//
-//        while (!queue.isEmpty()) {
-//            long v = queue.poll();
-//
-//            for (long vertex : graph.getAdjacentVertices(v)) {
-//                if (!destinations.containsKey(vertex)) {
-//                    queue.add(vertex);
-//                    destinations.put(vertex, destinations.get(v) + 1);
-//                    prev
-//                    prev.get(v).add(vertex);
-//                } else if (destinations.get(vertex) == (destinations.get(v) + 1)) {
-//                    prev.get(v).add(vertex);
-//                }
-//            }
-//        }
-//
-//        Collection<HashSet<Long>> allPaths = new ArrayList<>();
-//        Vector<Long> currentPath = new Vector<>();
-//        Stack<Long> stack = new Stack<>();
-//
-////        currentPath.add(target);
-////        if (prev.get(target).size() == 0) {
-////            allPaths.add(new HashSet<Long>(currentPath.begin(), currentPath.end()));
-////        }
-////
-////        stack.push(target);
-////        while (!stack.empty()) {
-////
-////        }
-//        dfs(prev, target, allPaths, currentPath);
-//        return allPaths.stream();
-//    }
-
-    private void dfs(Map<Long, HashSet<Long>> prev, long node, Collection<HashSet<Long>> allPaths, Vector<Long> currentPath) {
-        currentPath.add(node);
-        if (prev.get(node).size() == 0) {
-            allPaths.add(new HashSet<>(Arrays.asList(currentPath.firstElement(), currentPath.lastElement())));
+    public Stream<List<Long>> getAllShortestPaths(long from, long to) {
+        LinkedHashMap<Long, Object> queue = new LinkedHashMap<>();
+        Set<Long> visited = new HashSet<>();
+        ArrayList<HashSet<Long>> prev = new ArrayList<>();
+        queue.put(from, mock);
+        for (int i = 0; i <= graph.size(); i++) {
+            prev.add(new HashSet<>());
         }
 
-        for (long vertex : prev.get(node)) {
-            dfs(prev, vertex, allPaths, currentPath);
+        long nodeTo = -1;
+        while (queue.keySet().size() > 0) {
+            long next = queue.keySet().iterator().next();
+
+            if (next == to) {
+                // base case: we found the end node and processed all edges to it -> we are done
+                nodeTo = next;
+                break;
+            }
+
+            for (long n : graph.getAdjacentVertices(next)) {
+                if (!visited.contains(n)) {
+                    queue.putIfAbsent(n, mock);
+                    prev.get((int) n).add(next);
+                }
+            }
+
+            // removing the node from queue
+            queue.remove(next);
+            visited.add(next);
+        }
+        if (nodeTo == -1) {
+            return Stream.empty();
         }
 
-        currentPath.remove(currentPath.size()-1);
+        // Now performing the dfs from target node to gather all paths
+        List<List<Long>> result = new ArrayList<>();
+        dfs(nodeTo, result, new LinkedList<>(), prev);
+
+        return result.stream();
     }
+
+    private void dfs(long n, List<List<Long>> result, LinkedList<Long> path, List<HashSet<Long>> prev) {
+        path.addFirst(n);
+        if (prev.get((int) n).size() == 0) {
+            // base case: we came to target vertex
+            result.add(new ArrayList<>(path));
+        }
+        for (long vertex : prev.get((int) n)) {
+            dfs(vertex, result, path, prev);
+        }
+        // do not forget to remove the processed element from path
+        path.removeFirst();
+    }
+
 }
