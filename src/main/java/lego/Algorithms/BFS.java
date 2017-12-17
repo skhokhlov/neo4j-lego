@@ -53,11 +53,12 @@ public class BFS {
 
 
     private static Object mock = new Object();
+
     /**
      * Find all shortest paths between two vertices in graph.
      *
-     * @param from  start vertex
-     * @param to target vertex
+     * @param from start vertex
+     * @param to   target vertex
      * @return stream of shortest paths
      */
     public Stream<List<Long>> getAllShortestPaths(long from, long to) {
