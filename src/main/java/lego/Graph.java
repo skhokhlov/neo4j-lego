@@ -12,20 +12,41 @@ import java.util.stream.Stream;
  */
 public class Graph {
     //    List<Long> edges = new ArrayList<>(); // Array with pairs of edges
+    /**
+     * List with edges of the graph
+     */
     private Collection<Edge> edges = new ArrayList<>();
 
+    /**
+     * Graph constructor
+     */
     public Graph() {
         this.edges = new ArrayList<>();
     }
 
+    /**
+     * Copy constructor for graph
+     *
+     * @param graph Graph to be copied
+     */
     public Graph(Graph graph) {
         this.edges = graph.edges;
     }
 
+    /**
+     * Check that graph do not contains edges
+     *
+     * @return True if empty and False if not
+     */
     public boolean isEmpty() {
         return edges.isEmpty();
     }
 
+    /**
+     * Size of the graph
+     *
+     * @return Count of edges in the graph
+     */
     public long size() {
         return edges.size();
     }
