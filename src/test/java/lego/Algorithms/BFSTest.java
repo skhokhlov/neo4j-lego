@@ -20,6 +20,7 @@ public class BFSTest {
     @Test
     public void getAllShortestPaths() throws Exception {
         Graph graph = example.getGraph();
+        assertThat(new BFS(graph).getAllShortestPaths(0, 0).count(), equalTo(0L));
         assertThat(new BFS(graph).getAllShortestPaths(3, 1).count(), equalTo(0L));
         assertThat(new BFS(graph).getAllShortestPaths(0, 1).count(), equalTo(1L));
         assertThat(new BFS(graph).getAllShortestPaths(1, 3).count(), equalTo(2L));

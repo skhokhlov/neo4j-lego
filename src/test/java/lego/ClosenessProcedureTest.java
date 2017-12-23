@@ -1,6 +1,6 @@
 package lego;
 
-import lego.Results.ClosenessResult;
+import lego.Results.CentralityResult;
 import org.junit.Rule;
 import org.junit.Test;
 import org.neo4j.driver.v1.*;

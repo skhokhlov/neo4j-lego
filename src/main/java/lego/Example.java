@@ -1,7 +1,7 @@
 package lego;
 
 import lego.Algorithms.Closeness;
-import lego.Results.ClosenessResult;
+import lego.Results.CentralityResult;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,16 +9,18 @@ import java.util.stream.Collectors;
 /**
  * Example graph for tests.
  * Nodes label: User. Vertices: A, B, C, D, E.
- * Relationships: A-TO-B, B-TO-C, B-TO-E, C-TO-D, E-TO-D.
+ * Relationships: A-TO-B, A-TO-E, B-TO-C, B-TO-E, C-TO-D, E-TO-D.
  */
 public class Example {
     private String label;
     private String exampleGraphStatement;
     private Graph exampleGraph;
-    private List<ClosenessResult> closeness;
+    private List<CentralityResult> closeness;
 
     public Example() {
-        exampleGraph = new Graph().addEdge(new Edge(0, 1))
+        exampleGraph = new Graph()
+                .addEdge(new Edge(0, 1))
+                .addEdge(new Edge(0, 4))
                 .addEdge(new Edge(1, 2))
                 .addEdge(new Edge(1, 4))
                 .addEdge(new Edge(2, 3))
@@ -50,7 +52,7 @@ public class Example {
         return exampleGraph;
     }
 
-    public List<ClosenessResult> getCloseness() {
+    public List<CentralityResult> getCloseness() {
         return closeness;
     }
 }

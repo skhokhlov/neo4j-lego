@@ -17,9 +17,9 @@ public class BFS {
      * Calculate length of shortest path between vertices using breadth-first search algorithm.
      * Works with OUTGOING edges
      *
-     * @param start  start vertex
-     * @param target target vertex
-     * @return length of shortest path between vertices
+     * @param start  This is start vertex
+     * @param target This is target vertex
+     * @return Length of shortest path between vertices
      */
     public long getPathLength(long start, long target) {
         if (start == target) {
@@ -57,11 +57,15 @@ public class BFS {
     /**
      * Find all shortest paths between two vertices in graph.
      *
-     * @param from start vertex
-     * @param to   target vertex
-     * @return stream of shortest paths
+     * @param from This is start vertex
+     * @param to   This is target vertex
+     * @return Stream of List with shortest paths
      */
     public Stream<List<Long>> getAllShortestPaths(long from, long to) {
+        if (from == to) {
+            return Stream.empty();
+        }
+
         LinkedHashMap<Long, Object> queue = new LinkedHashMap<>();
         Set<Long> visited = new HashSet<>();
         ArrayList<HashSet<Long>> prev = new ArrayList<>();

@@ -2,7 +2,7 @@ package lego.Algorithms;
 
 import lego.Edge;
 import lego.Graph;
-import lego.Results.ClosenessResult;
+import lego.Results.CentralityResult;
 import org.junit.Test;
 
 import java.util.stream.Stream;
@@ -28,10 +28,10 @@ public class ClosenessTest {
         Edge edge2 = new Edge(2, 1);
         Edge edge3 = new Edge(3, 1);
         graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
-        Stream<ClosenessResult> res = Stream.of(
-                new ClosenessResult(1, 1),
-                new ClosenessResult(2, 1),
-                new ClosenessResult(3, 1d / 3d)
+        Stream<CentralityResult> res = Stream.of(
+                new CentralityResult(1, 1),
+                new CentralityResult(2, 1),
+                new CentralityResult(3, 1d / 3d)
         );
         assertThat(
                 new Closeness().getScores(graph).mapToDouble(score -> score.centrality).sorted().toArray(),

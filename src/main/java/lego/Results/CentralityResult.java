@@ -1,6 +1,6 @@
 package lego.Results;
 
-public class ClosenessResult {
+public class CentralityResult {
     public final long nodes;
     public final double centrality;
 
@@ -8,7 +8,7 @@ public class ClosenessResult {
      * @param nodes      node id
      * @param centrality node score
      */
-    public ClosenessResult(long nodes, double centrality) {
+    public CentralityResult(long nodes, double centrality) {
         this.centrality = centrality;
         this.nodes = nodes;
     }

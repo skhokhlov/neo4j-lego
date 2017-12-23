@@ -1,7 +1,7 @@
 package lego;
 
 import lego.Algorithms.Closeness;
-import lego.Results.ClosenessResult;
+import lego.Results.CentralityResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.procedure.*;
 
@@ -16,7 +16,7 @@ public class ClosenessProcedure {
 
     @Procedure(value = "lego.closeness", mode = Mode.READ)
     @Description("Calculate Closeness centrality")
-    public Stream<ClosenessResult> closeness(@Name("label") String label) {
+    public Stream<CentralityResult> closeness(@Name("label") String label) {
         Graph graph = new GraphLoader(db, label).load();
         return new Closeness().getScores(graph);
     }

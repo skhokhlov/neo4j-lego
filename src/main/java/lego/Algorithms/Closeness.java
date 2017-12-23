@@ -2,7 +2,7 @@ package lego.Algorithms;
 
 import lego.Direction;
 import lego.Graph;
-import lego.Results.ClosenessResult;
+import lego.Results.CentralityResult;
 
 import java.util.stream.Stream;
 
@@ -26,11 +26,11 @@ public class Closeness {
     }
 
     /**
-     * Calculate closeness centrality for specific vertex in graph
+     * Calculate closeness centrality for specific vertex in graph using {@link BFS}.
      *
-     * @param graph    graph for calculations
-     * @param vertexId id of vertex
-     * @return vertex score
+     * @param graph    This is graph for calculations
+     * @param vertexId This is id of the vertex
+     * @return Centrality score for vertex
      */
     public double getVertexScore(Graph graph, long vertexId) {
         if (!graph.containsVertex(vertexId)) {
@@ -46,12 +46,12 @@ public class Closeness {
 
     /**
      * Calculate closeness centrality for each vertex in graph
-     * and return stream of {@link ClosenessResult} class.
+     * and return stream of {@link CentralityResult} class.
      *
-     * @param graph graph for calculations
-     * @return Stream of {@link ClosenessResult} with scores
+     * @param graph This is graph for calculations
+     * @return Stream of {@link CentralityResult} with scores
      */
-    public Stream<ClosenessResult> getScores(Graph graph) {
-        return graph.getVertexStream().map(vertex -> new ClosenessResult(vertex, getVertexScore(graph, vertex)));
+    public Stream<CentralityResult> getScores(Graph graph) {
+        return graph.getVertexStream().map(vertex -> new CentralityResult(vertex, getVertexScore(graph, vertex)));
     }
 }
