@@ -1,7 +1,7 @@
 package lego;
 
 /**
- * Class for edges in graph. Edge cannot be changed.
+ * Class for edges in {@link Graph}. Edge cannot be changed.
  */
 public class Edge {
     private final long start;
@@ -10,8 +10,8 @@ public class Edge {
     /**
      * Edge constructor
      *
-     * @param start start vertex
-     * @param target target vertex
+     * @param start  This is start vertex of the edge
+     * @param target This is target vertex of the edge
      */
     public Edge(long start, long target) {
         this.start = start;
@@ -19,24 +19,28 @@ public class Edge {
     }
 
     /**
-     * @return start vertex
+     * Get start vertex of the edge
+     *
+     * @return Start vertex
      */
     public long getStart() {
         return start;
     }
 
     /**
-     * @return target vertex
+     * Get target vertex of the edge
+     *
+     * @return Target vertex
      */
-    public long getEnd(){
+    public long getEnd() {
         return end;
     }
 
     /**
      * Check that that edge contains vertex
      *
-     * @param id id of vertex
-     * @return boolean
+     * @param id This is id of vertex
+     * @return True if contains and False of not
      */
     public boolean containsVertex(long id) {
         return start == id || end == id;

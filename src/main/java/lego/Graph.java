@@ -31,14 +31,18 @@ public class Graph {
     }
 
     /**
-     * @return stream of {@link Edge}
+     * Make Stream of {@link Edge}
+     *
+     * @return Stream of {@link Edge}
      */
     public Stream<Edge> getStream() {
         return edges.stream();
     }
 
     /**
-     * @return parallel stream of {@link Edge}
+     * Make parallel stream of {@link Edge}
+     *
+     * @return Parallel stream of {@link Edge}
      */
     public Stream<Edge> getParallelStream() {
         return edges.parallelStream();
@@ -67,7 +71,7 @@ public class Graph {
     /**
      * Parallel stream of getVertexStream()
      *
-     * @return parallel stream of vertex ids
+     * @return Parallel stream of vertex ids
      */
     public Stream<Long> getParallelVertexStream() {
         return this.getVertexStream().parallel();
@@ -76,8 +80,8 @@ public class Graph {
     /**
      * Make list of incident edges for vertex
      *
-     * @param vertexId vertex id
-     * @return list with edges
+     * @param vertexId This is vertex id
+     * @return List with edges
      */
     public List<Edge> getIncidentEdges(long vertexId) {
         return this.getStream().filter(edge -> edge.containsVertex(vertexId)).collect(Collectors.toList());
@@ -86,8 +90,8 @@ public class Graph {
     /**
      * Make list of outgoing edges for vertex
      *
-     * @param vertexId vertex id
-     * @return list with edges
+     * @param vertexId This is vertex id
+     * @return List with edges
      */
     public List<Edge> getOutgoingEdges(long vertexId) {
         return this.getStream().filter(edge -> edge.getStart() == vertexId).collect(Collectors.toList());
@@ -96,8 +100,8 @@ public class Graph {
     /**
      * Make list of adjacent vertices by outgoing edges
      *
-     * @param vertexId vertex id
-     * @return list with adjacent vertices
+     * @param vertexId This is vertex id
+     * @return List with adjacent vertices
      */
     public List<Long> getAdjacentVertices(long vertexId) {
         return this.getStream().filter(edge -> edge.getStart() == vertexId).map(Edge::getEnd).collect(Collectors.toList());
@@ -106,8 +110,8 @@ public class Graph {
     /**
      * Add new edge to graph and return them
      *
-     * @param edge added vertex
-     * @return this graph
+     * @param edge This is new {@link Edge}
+     * @return Current {@link Graph}
      */
     public Graph addEdge(Edge edge) {
         edges.add(edge);
@@ -117,8 +121,8 @@ public class Graph {
     /**
      * Remove edge from graph and return them
      *
-     * @param edge removed vertex
-     * @return this graph
+     * @param edge This is vertex to be removed
+     * @return Current {@link Graph}
      */
     public Graph removeEdge(Edge edge) {
         edges.remove(edge);
@@ -128,8 +132,8 @@ public class Graph {
     /**
      * Check that graph contains edge
      *
-     * @param edge checked edge
-     * @return boolean
+     * @param edge This is edge to be checked
+     * @return True if contains and False if not
      */
     public boolean containsEdge(Edge edge) {
         return this.getStream().anyMatch(edge::equals);
@@ -138,8 +142,8 @@ public class Graph {
     /**
      * Check that graph contains vertex
      *
-     * @param id vertex id
-     * @return boolean
+     * @param id This is vertex id
+     * @return True if contains and False if not
      */
     public boolean containsVertex(long id) {
         return this.getStream().anyMatch(edge -> edge.containsVertex(id));
