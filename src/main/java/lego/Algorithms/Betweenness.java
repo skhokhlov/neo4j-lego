@@ -3,6 +3,7 @@ package lego.Algorithms;
 import lego.Graph;
 import lego.Results.CentralityResult;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
@@ -36,7 +37,8 @@ public class Betweenness {
                     continue;
                 }
 
-                Supplier<Stream<List<Long>>> paths = () -> bfs.getAllShortestPaths(s, t);
+                Supplier<Stream<List<Long>>> paths = () -> bfs.findAllShortestPaths(s, t);
+//                Supplier<Stream<HashSet<Long>>> paths = () -> bfs.getAllShortestPaths(s, t);
                 allPaths += paths.get().count();
 
                 // Find paths that contains target vertex

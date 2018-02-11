@@ -98,6 +98,11 @@ public class GraphTest {
         res.add(2L);
         res.add(3L);
         assertThat(graph.getAdjacentVertices(1), equalTo(res));
+        List<Long> res2 = new ArrayList<>();
+        res2.add(4L);
+        assertThat(graph.getAdjacentVertices(2), equalTo(res2));
+        List<Long> res3 = new ArrayList<>();
+        assertThat(graph.getAdjacentVertices(3), equalTo(res3));
     }
 
     @Test
