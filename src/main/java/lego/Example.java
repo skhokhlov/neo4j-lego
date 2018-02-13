@@ -1,5 +1,6 @@
 package lego;
 
+import lego.Algorithms.Betweenness;
 import lego.Algorithms.Closeness;
 import lego.Results.CentralityResult;
 
@@ -16,6 +17,7 @@ public class Example {
     private String exampleGraphStatement;
     private Graph exampleGraph;
     private List<CentralityResult> closeness;
+    private List<CentralityResult> betweenness;
 
     public Example() {
         exampleGraph = new Graph()
@@ -26,6 +28,7 @@ public class Example {
                 .addEdge(new Edge(2, 3))
                 .addEdge(new Edge(4, 3));
         closeness = new Closeness().getScores(exampleGraph).collect(Collectors.toList());
+        betweenness = new Betweenness().getScores(exampleGraph).collect(Collectors.toList());
         exampleGraphStatement = "CREATE (A:User {name: \"A\"})\n" +
                 "CREATE (B:User {name: \"B\"})\n" +
                 "CREATE (C:User {name: \"C\"})\n" +
@@ -54,5 +57,9 @@ public class Example {
 
     public List<CentralityResult> getCloseness() {
         return closeness;
+    }
+
+    public List<CentralityResult> getBetweenness() {
+        return betweenness;
     }
 }
