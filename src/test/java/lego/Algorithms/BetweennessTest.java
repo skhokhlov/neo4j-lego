@@ -14,7 +14,7 @@ public class BetweennessTest {
     public void getVertexScore() throws Exception {
         Graph graph = example.getGraph();
         assertThat(new Betweenness().getVertexScore(graph, 0), equalTo(0d));
-        assertThat(new Betweenness().getVertexScore(graph, 1), equalTo(5d));
+        assertThat(new Betweenness().getVertexScore(graph, 1), equalTo(1d));
         assertThat(new Betweenness().getVertexScore(graph, 4), equalTo(1.5));
     }
 }

@@ -24,8 +24,7 @@ public class Betweenness {
 
         BFS bfs = new BFS(graph);
 
-        long allPaths = 0;
-        long pathsContainsVertex = 0;
+        double betweenness = 0;
 
         for (Iterator<Long> it = graph.getVertexStream().iterator(); it.hasNext(); ) {
             long s = it.next();
@@ -39,15 +38,27 @@ public class Betweenness {
 
                 Supplier<Stream<List<Long>>> paths = () -> bfs.findAllShortestPaths(s, t);
 //                Supplier<Stream<HashSet<Long>>> paths = () -> bfs.getAllShortestPaths(s, t);
-                allPaths += paths.get().count();
+                long allPaths = paths.get().count();
 
-                // Find paths that contains target vertex
-                pathsContainsVertex += paths.get().mapToLong(item -> item.contains(vertexId) ? 1 : 0).sum();
+                if (allPaths != 0) {
+                    // Find paths that contains target vertex
+                    long pathsContainsVertex = paths.get().mapToLong(item -> {
+                        for (long i : item.subList(1, item.size() - 1)) { // check all elements except first and last
+                            if (i == vertexId) {
+                                return 1;
+                            }
+                        }
+
+                        return 0;
+                    }).sum();
+
+                    betweenness += (double) pathsContainsVertex / (double) allPaths;
+                }
             }
 
         }
 
-        return (double) pathsContainsVertex / (double) allPaths;
+        return betweenness;
     }
 
     /**
