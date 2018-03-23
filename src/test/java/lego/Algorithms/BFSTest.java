@@ -1,6 +1,5 @@
 package lego.Algorithms;
 
-import lego.Edge;
 import lego.Example;
 import lego.Graph;
 import org.junit.Test;

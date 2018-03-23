@@ -129,4 +129,13 @@ public class GraphTest {
         res.add(edge2);
         assertThat(graph.getIncidentEdges(1), equalTo(res));
     }
+
+    @Test
+    public void shouldReturnCorrectVerticesCount() throws Exception {
+        Graph graph = new Graph();
+        Edge edge1 = new Edge(1,2);
+        Edge edge2 = new Edge(2,1);
+        graph.addEdge(edge1).addEdge(edge2);
+        assertThat(graph.getVerticesCount(), equalTo(2));
+    }
 }

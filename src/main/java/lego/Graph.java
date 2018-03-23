@@ -129,6 +129,15 @@ public class Graph {
     }
 
     /**
+     * Count of vertices in the graph
+     *
+     * @return Count of vertices
+     */
+    public int getVerticesCount() {
+        return (int) this.getVertexStream().count();
+    }
+
+    /**
      * Add new edge to graph and return them
      *
      * @param edge This is new {@link Edge}
