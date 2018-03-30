@@ -28,10 +28,10 @@ public class BetweennessTest {
         Graph graph = example.getGraph();
 
         Stream<CentralityResult> res = Stream.of(
-                new CentralityResult(0, 0),
+//                new CentralityResult(0, 0),
                 new CentralityResult(1, 1),
                 new CentralityResult(2, 0.5),
-                new CentralityResult(3, 0),
+//                new CentralityResult(3, 0),
                 new CentralityResult(4, 1.5)
         );
         assertThat(
