@@ -4,8 +4,8 @@ package lego;
  * Class for edges in {@link Graph}. Edge cannot be changed.
  */
 public class Edge {
-    private final long start;
-    private final long end;
+    private final int start;
+    private final int end;
 
     /**
      * Edge constructor
@@ -13,7 +13,7 @@ public class Edge {
      * @param start  This is start vertex of the edge
      * @param target This is target vertex of the edge
      */
-    public Edge(long start, long target) {
+    public Edge(int start, int target) {
         this.start = start;
         this.end = target;
     }
@@ -23,7 +23,7 @@ public class Edge {
      *
      * @return Start vertex
      */
-    public long getStart() {
+    public int getStart() {
         return start;
     }
 
@@ -32,7 +32,7 @@ public class Edge {
      *
      * @return Target vertex
      */
-    public long getEnd() {
+    public int getEnd() {
         return end;
     }
 
@@ -42,7 +42,7 @@ public class Edge {
      * @param id This is id of vertex
      * @return True if contains and False of not
      */
-    public boolean containsVertex(long id) {
+    public boolean containsVertex(int id) {
         return start == id || end == id;
     }
 }

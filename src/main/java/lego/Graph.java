@@ -47,7 +47,7 @@ public class Graph {
      *
      * @return Count of edges in the graph
      */
-    public long size() {
+    public int size() {
         return edges.size();
     }
 
@@ -72,10 +72,10 @@ public class Graph {
     /**
      * Make Stream of vertex ids
      *
-     * @return Stream of Long
+     * @return Stream of Integer
      */
-    public Stream<Long> getVertexStream() {
-        Collection<Long> vertices = new ArrayList<>();
+    public Stream<Integer> getVertexStream() {
+        Collection<Integer> vertices = new ArrayList<>();
 
         for (Edge edge : edges) {
             if (!vertices.contains(edge.getStart())) {
@@ -94,7 +94,7 @@ public class Graph {
      *
      * @return Parallel stream of vertex ids
      */
-    public Stream<Long> getParallelVertexStream() {
+    public Stream<Integer> getParallelVertexStream() {
         return this.getVertexStream().parallel();
     }
 
@@ -104,7 +104,7 @@ public class Graph {
      * @param vertexId This is vertex id
      * @return List with edges
      */
-    public List<Edge> getIncidentEdges(long vertexId) {
+    public List<Edge> getIncidentEdges(int vertexId) {
         return this.getStream().filter(edge -> edge.containsVertex(vertexId)).collect(Collectors.toList());
     }
 
@@ -114,7 +114,7 @@ public class Graph {
      * @param vertexId This is vertex id
      * @return List with edges
      */
-    public List<Edge> getOutgoingEdges(long vertexId) {
+    public List<Edge> getOutgoingEdges(int vertexId) {
         return this.getStream().filter(edge -> edge.getStart() == vertexId).collect(Collectors.toList());
     }
 
@@ -124,7 +124,7 @@ public class Graph {
      * @param vertexId This is vertex id
      * @return List with adjacent vertices
      */
-    public List<Long> getAdjacentVertices(long vertexId) {
+    public List<Integer> getAdjacentVertices(int vertexId) {
         return this.getStream().filter(edge -> edge.getStart() == vertexId).map(Edge::getEnd).collect(Collectors.toList());
     }
 
@@ -175,7 +175,7 @@ public class Graph {
      * @param id This is vertex id
      * @return True if contains and False if not
      */
-    public boolean containsVertex(long id) {
+    public boolean containsVertex(int id) {
         return this.getStream().anyMatch(edge -> edge.containsVertex(id));
     }
 

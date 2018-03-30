@@ -20,7 +20,7 @@ public class Degree {
     @Description("Calculate degree of vertex")
     public Stream<DegreeResult> degree(@Name("label") String label) {
         final Label ind = Label.label(label);
-        return db.findNodes(ind).stream().map((n) -> new DegreeResult(n.getId(), n.getDegree()));
+        return db.findNodes(ind).stream().map((n) -> new DegreeResult((int) n.getId(), n.getDegree()));
     }
 
 }

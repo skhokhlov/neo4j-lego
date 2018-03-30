@@ -13,8 +13,8 @@ public class BFSTest {
     @Test
     public void getPathLength() throws Exception {
         Graph graph = example.getGraph();
-        assertThat(new BFS(graph).getPathLength(1, 3), equalTo(2L));
-        assertThat(new BFS(graph).getPathLength(1, 1), equalTo(0L));
+        assertThat(new BFS(graph).getPathLength(1, 3), equalTo(2));
+        assertThat(new BFS(graph).getPathLength(1, 1), equalTo(0));
     }
 
     @Test

@@ -3,9 +3,10 @@ package lego.Algorithms;
 import lego.Graph;
 import lego.Results.CentralityResult;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -17,7 +18,7 @@ public class Betweenness {
      * @param vertexId id of vertex
      * @return vertex score
      */
-    public double getVertexScore(Graph graph, long vertexId) {
+    public double getVertexScore(Graph graph, int vertexId) {
         if (!graph.containsVertex(vertexId)) {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }
@@ -26,24 +27,24 @@ public class Betweenness {
 
         double betweenness = 0;
 
-        for (Iterator<Long> it = graph.getVertexStream().iterator(); it.hasNext(); ) {
-            long s = it.next();
+        for (Iterator<Integer> it = graph.getVertexStream().iterator(); it.hasNext(); ) {
+            int s = it.next();
 
-            for (Iterator<Long> it2 = graph.getVertexStream().iterator(); it2.hasNext(); ) {
-                long t = it2.next();
+            for (Iterator<Integer> it2 = graph.getVertexStream().iterator(); it2.hasNext(); ) {
+                int t = it2.next();
 
                 if (s == t) {
                     continue;
                 }
 
-                Supplier<Stream<List<Long>>> paths = () -> bfs.findAllShortestPaths(s, t);
+                Supplier<Stream<List<Integer>>> paths = () -> bfs.findAllShortestPaths(s, t);
 //                Supplier<Stream<HashSet<Long>>> paths = () -> bfs.getAllShortestPaths(s, t);
                 long allPaths = paths.get().count();
 
                 if (allPaths != 0) {
                     // Find paths that contains target vertex
                     long pathsContainsVertex = paths.get().mapToLong(item -> {
-                        for (long i : item.subList(1, item.size() - 1)) { // check all elements except first and last
+                        for (int i : item.subList(1, item.size() - 1)) { // check all elements except first and last
                             if (i == vertexId) {
                                 return 1;
                             }

@@ -19,7 +19,7 @@ public class GraphLoader {
                 final Node startNode = relationship.getStartNode();
                 final Node endNode = relationship.getEndNode();
                 if (hasLabel(startNode) && hasLabel(endNode)) {
-                    this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
+                    this.graph.addEdge(new Edge((int) startNode.getId(), (int) endNode.getId()));
                 }
             }
 //            tx.close();
@@ -34,7 +34,7 @@ public class GraphLoader {
             final Node startNode = relationship.getStartNode();
             final Node endNode = relationship.getEndNode();
             if (hasLabel(startNode) && hasLabel(endNode)) {
-                this.graph.addEdge(new Edge(startNode.getId(), endNode.getId()));
+                this.graph.addEdge(new Edge((int) startNode.getId(), (int) endNode.getId()));
             }
 
         }

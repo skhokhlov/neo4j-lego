@@ -32,7 +32,7 @@ public class Closeness {
      * @param vertexId This is id of the vertex
      * @return Centrality score for vertex
      */
-    public double getVertexScore(Graph graph, long vertexId) {
+    public double getVertexScore(Graph graph, int vertexId) {
         if (!graph.containsVertex(vertexId)) {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }

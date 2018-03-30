@@ -36,17 +36,17 @@ public class Degree {
      * @param vertexId id of vertex
      * @return degree of vertex
      */
-    public long getVertexScore(Graph graph, long vertexId) {
+    public int getVertexScore(Graph graph, int vertexId) {
         if (!graph.containsVertex(vertexId)) {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }
 
         if (Direction.BOTH == direction) {
-            return graph.getStream().filter(edge -> edge.containsVertex(vertexId)).count(); // Vertex degree for undirected graph
+            return (int) graph.getStream().filter(edge -> edge.containsVertex(vertexId)).count(); // Vertex degree for undirected graph
         } else if (Direction.OUTGOING == direction) {
-            return graph.getStream().filter(edge -> edge.getStart() == vertexId).count();
+            return (int) graph.getStream().filter(edge -> edge.getStart() == vertexId).count();
         } else {
-            return graph.getStream().filter(edge -> edge.getEnd() == vertexId).count();
+            return (int) graph.getStream().filter(edge -> edge.getEnd() == vertexId).count();
         }
     }
 

@@ -94,14 +94,14 @@ public class GraphTest {
         Edge edge2 = new Edge(1,3);
         Edge edge3 = new Edge(2,4);
         graph.addEdge(edge1).addEdge(edge2).addEdge(edge3);
-        List<Long> res = new ArrayList<>();
-        res.add(2L);
-        res.add(3L);
+        List<Integer> res = new ArrayList<>();
+        res.add(2);
+        res.add(3);
         assertThat(graph.getAdjacentVertices(1), equalTo(res));
-        List<Long> res2 = new ArrayList<>();
-        res2.add(4L);
+        List<Integer> res2 = new ArrayList<>();
+        res2.add(4);
         assertThat(graph.getAdjacentVertices(2), equalTo(res2));
-        List<Long> res3 = new ArrayList<>();
+        List<Integer> res3 = new ArrayList<>();
         assertThat(graph.getAdjacentVertices(3), equalTo(res3));
     }
 

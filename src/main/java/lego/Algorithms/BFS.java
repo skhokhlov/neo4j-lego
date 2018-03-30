@@ -22,23 +22,23 @@ public class BFS {
      * @param target This is target vertex
      * @return Length of shortest path between vertices
      */
-    public long getPathLength(long start, long target) {
+    public int getPathLength(int start, int target) {
         if (start == target) {
-            return 0L;
+            return 0;
         }
 
-        Queue<Long> queue = new LinkedList<>();
-        List<Long> visited = new ArrayList<>();
-        Map<Long, Long> destinations = new HashMap<>();
+        Queue<Integer> queue = new LinkedList<>();
+        List<Integer> visited = new ArrayList<>();
+        Map<Integer, Integer> destinations = new HashMap<>();
         queue.add(start);
-        destinations.put(start, 0L);
+        destinations.put(start, 0);
 
         while (!queue.isEmpty()) {
-            long v = queue.poll();
+            int v = queue.poll();
 
-            for (long vertex : graph.getAdjacentVertices(v)) {
+            for (int vertex : graph.getAdjacentVertices(v)) {
                 if (vertex == target) {
-                    return destinations.getOrDefault(v, 0L) + 1;
+                    return destinations.getOrDefault(v, 0) + 1;
                 }
 
                 if (!visited.contains(vertex)) {
@@ -49,7 +49,7 @@ public class BFS {
             }
         }
 
-        return 0L;
+        return 0;
     }
 
     /**
@@ -59,36 +59,36 @@ public class BFS {
      * @param target This is target vertex
      * @return Stream of List with shortest paths
      */
-    public Stream<List<Long>> findAllShortestPaths(long start, long target) {
+    public Stream<List<Integer>> findAllShortestPaths(int start, int target) {
         if (start == target) {
             return Stream.empty();
         }
 
-        Queue<Long> queue = new LinkedList<>();
-        Set<Long> visited = new HashSet<>();
-        ArrayList<HashSet<Long>> prev = new ArrayList<HashSet<Long>>();
+        Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+        ArrayList<HashSet<Integer>> prev = new ArrayList<HashSet<Integer>>();
 
         for (int i = 0; i <= graph.size(); i++) {
             prev.add(new HashSet<>());
         }
         queue.add(start);
-        long vertexTo = -1;
+        int vertexTo = -1;
 
         while (!queue.isEmpty()) {
-            long next = queue.poll();
+            int next = queue.poll();
 
             if (next == target) {
                 vertexTo = next;
                 break;
             }
 
-            for (long n : graph.getAdjacentVertices(next)) {
+            for (int n : graph.getAdjacentVertices(next)) {
                 if (!visited.contains(n)) {
                     if (!queue.contains(n)) {
                         queue.add(n);
                     }
 
-                    prev.get((int) n).add(next);
+                    prev.get(n).add(next);
                 }
             }
 
@@ -101,7 +101,7 @@ public class BFS {
             return Stream.empty();
         }
 
-        List<List<Long>> result = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
 
         dfs(vertexTo, result, prev, new LinkedList<>());
 
@@ -111,13 +111,13 @@ public class BFS {
                 .firstEntry().getValue().stream();
     }
 
-    private void dfs(long n, List<List<Long>> result, ArrayList<HashSet<Long>> prev, LinkedList<Long> path) {
+    private void dfs(int n, List<List<Integer>> result, ArrayList<HashSet<Integer>> prev, LinkedList<Integer> path) {
         path.addFirst(n);
-        if (prev.get((int) n).size() == 0) {
+        if (prev.get(n).size() == 0) {
             result.add(new ArrayList<>(path));
         }
 
-        for (long p : prev.get((int) n)) {
+        for (int p : prev.get(n)) {
             dfs(p, result, prev, path);
         }
 

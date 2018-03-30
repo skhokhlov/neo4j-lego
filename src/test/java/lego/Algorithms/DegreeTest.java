@@ -36,7 +36,7 @@ public class DegreeTest {
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 1);
         graph.addEdge(edge1).addEdge(edge2);
-        assertThat(new Degree().setDirection(Direction.BOTH).getVertexScore(graph, 1), equalTo(2L));
+        assertThat(new Degree().setDirection(Direction.BOTH).getVertexScore(graph, 1), equalTo(2));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DegreeTest {
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(1, 3);
         graph.addEdge(edge1).addEdge(edge2);
-        assertThat(new Degree().setDirection(Direction.INCOMING).getVertexScore(graph, 1), equalTo(0L));
+        assertThat(new Degree().setDirection(Direction.INCOMING).getVertexScore(graph, 1), equalTo(0));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DegreeTest {
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(1, 3);
         graph.addEdge(edge1).addEdge(edge2);
-        assertThat(new Degree().setDirection(Direction.OUTGOING).getVertexScore(graph, 1), equalTo(2L));
+        assertThat(new Degree().setDirection(Direction.OUTGOING).getVertexScore(graph, 1), equalTo(2));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class DegreeTest {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         graph.addEdge(edge1);
-        assertThat(new Degree().setDirection(Direction.OUTGOING).getVertexScore(graph, 2), equalTo(0L));
+        assertThat(new Degree().setDirection(Direction.OUTGOING).getVertexScore(graph, 2), equalTo(0));
     }
 
     @Test
