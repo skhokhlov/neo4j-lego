@@ -15,7 +15,7 @@ public class DegreeTest {
     public Neo4jRule neo4j = new Neo4jRule().withProcedure(Degree.class);
 
     @Test
-    public void shouldCalculateDegree() throws Throwable {
+    public void shouldCalculateDegree() {
         // In a try-block, to make sure we close the driver and session after the test
         try (
                 Driver driver = GraphDatabase.driver(

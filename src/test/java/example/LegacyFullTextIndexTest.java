@@ -19,7 +19,7 @@ public class LegacyFullTextIndexTest {
             .withProcedure(FullTextIndex.class);
 
     @Test
-    public void shouldAllowIndexingAndFindingANode() throws Throwable {
+    public void shouldAllowIndexingAndFindingANode() {
         // In a try-block, to make sure we close the driver and session after the test
         try (Driver driver = GraphDatabase.driver(neo4j.boltURI(), Config.build()
                 .withEncryptionLevel(Config.EncryptionLevel.NONE).toConfig());

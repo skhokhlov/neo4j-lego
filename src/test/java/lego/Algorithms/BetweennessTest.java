@@ -15,7 +15,7 @@ public class BetweennessTest {
     private Example example = new Example();
 
     @Test
-    public void getVertexScore() throws Exception {
+    public void getVertexScore() {
         Graph graph = example.getGraph();
         assertThat(new Betweenness().getVertexScore(graph, 0), equalTo(0d));
         assertThat(new Betweenness().getVertexScore(graph, 1), equalTo(1d));
@@ -23,7 +23,7 @@ public class BetweennessTest {
     }
 
     @Test
-    public void shouldCalculateBetweennessForEachVertex() throws Exception {
+    public void shouldCalculateBetweennessForEachVertex() {
         Graph graph = example.getGraph();
 //        Graph graph = new RandomGraph().withSize(10).getGraph();
 
@@ -41,13 +41,13 @@ public class BetweennessTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyIfGraphIsEmpty() throws Exception {
+    public void shouldWorkCorrectlyIfGraphIsEmpty() {
         Graph graph = new Graph();
         assertThat(new Betweenness().getScores(graph).count(), equalTo(0L));
     }
 
     @Test
-    public void shouldWorkWithRandomGraph() throws Exception {
+    public void shouldWorkWithRandomGraph() {
         Graph graph = new RandomGraph().withSize(50).getGraph();
         new Betweenness().getScores(graph);
     }

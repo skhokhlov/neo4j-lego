@@ -15,7 +15,7 @@ public class BetweennessProcedureTest {
     public Neo4jRule neo4j = new Neo4jRule().withProcedure(BetweennessProcedure.class);
 
     @Test
-    public void betweenness() throws Exception {
+    public void betweenness() {
         try (
                 Driver driver = GraphDatabase.driver(
                         neo4j.boltURI(),

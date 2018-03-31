@@ -27,13 +27,13 @@ public class CentralityServiceTest {
             .withExtension("/centrality/closeness", CentralityService.class);
 
     @Test
-    public void shouldWorkWithServer() throws IOException {
+    public void shouldWorkWithServer() {
         HTTP.Response response = HTTP.GET(neo4j.httpURI().toString());
         assertEquals(200, response.status());
     }
 
     @Test
-    public void shouldRetrieveCentralityService() throws IOException {
+    public void shouldRetrieveCentralityService() {
         HTTP.Response response = HTTP.GET(neo4j.httpsURI().resolve(
                 "/centrality/helloworld2/"
         ).toString());

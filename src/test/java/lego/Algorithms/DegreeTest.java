@@ -13,25 +13,25 @@ import static org.junit.Assert.*;
 
 public class DegreeTest {
     @Test
-    public void shouldSetBothDirection() throws Exception {
+    public void shouldSetBothDirection() {
         Degree degree = new Degree().setDirection(Direction.BOTH);
         assertThat(degree.getDirection(), equalTo(Direction.BOTH));
     }
     
     @Test
-    public void shouldSetIncomingDirection() throws Exception {
+    public void shouldSetIncomingDirection() {
         Degree degree = new Degree().setDirection(Direction.INCOMING);
         assertThat(degree.getDirection(), equalTo(Direction.INCOMING));
     }
     
     @Test
-    public void shouldSetOutgoingDirection() throws Exception {
+    public void shouldSetOutgoingDirection() {
         Degree degree = new Degree().setDirection(Direction.OUTGOING);
         assertThat(degree.getDirection(), equalTo(Direction.OUTGOING));
     }
 
     @Test
-    public void shouldCalculateVertexDegreeForBoth() throws Exception {
+    public void shouldCalculateVertexDegreeForBoth() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 1);
@@ -40,7 +40,7 @@ public class DegreeTest {
     }
 
     @Test
-    public void shouldCalculateVertexDegreeForIncoming() throws Exception {
+    public void shouldCalculateVertexDegreeForIncoming() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(1, 3);
@@ -49,7 +49,7 @@ public class DegreeTest {
     }
 
     @Test
-    public void shouldCalculateVertexDegreeForOutgoing() throws Exception {
+    public void shouldCalculateVertexDegreeForOutgoing() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(1, 3);
@@ -58,7 +58,7 @@ public class DegreeTest {
     }
 
     @Test
-    public void shouldCalculateZeroVertexDegree() throws Exception {
+    public void shouldCalculateZeroVertexDegree() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         graph.addEdge(edge1);
@@ -66,7 +66,7 @@ public class DegreeTest {
     }
 
     @Test
-    public void shouldCalculateDegreeForEachVertex() throws Exception {
+    public void shouldCalculateDegreeForEachVertex() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(1, 3);

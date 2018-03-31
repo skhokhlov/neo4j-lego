@@ -17,7 +17,7 @@ public class GraphLoaderTest {
     public Neo4jRule neo4j = new Neo4jRule();
 
     @Test
-    public void shouldSetLabel() throws Exception {
+    public void shouldSetLabel() {
         try (
                 Driver driver = GraphDatabase.driver(
                         neo4j.boltURI(),
@@ -35,7 +35,7 @@ public class GraphLoaderTest {
     }
 
     @Test
-    public void shouldLoadGraph() throws Exception {
+    public void shouldLoadGraph() {
         try (
                 Driver driver = GraphDatabase.driver(
                         neo4j.boltURI(),

@@ -6,12 +6,12 @@ import static org.junit.Assert.*;
 public class RandomGraphTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowNegativeSize() throws Exception {
+    public void shouldThrowNegativeSize() {
         new RandomGraph().withSize(-10).getGraph();
     }
 
     @Test
-    public void shouldGenerateCorrectEdges() throws Exception {
+    public void shouldGenerateCorrectEdges() {
         final int size = 50;
         Graph graph = new RandomGraph().withSize(size).getGraph();
 

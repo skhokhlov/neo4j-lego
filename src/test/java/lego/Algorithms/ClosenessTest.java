@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class ClosenessTest {
     @Test
-    public void getVertexScore() throws Exception {
+    public void getVertexScore() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 1);
@@ -22,7 +22,7 @@ public class ClosenessTest {
     }
 
     @Test
-    public void shouldCalculateClosenessForEachVertex() throws Exception {
+    public void shouldCalculateClosenessForEachVertex() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1, 2);
         Edge edge2 = new Edge(2, 1);
@@ -40,7 +40,7 @@ public class ClosenessTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyIfGraphIsEmpty() throws Exception {
+    public void shouldWorkCorrectlyIfGraphIsEmpty() {
         Graph graph = new Graph();
         assertThat(new Closeness().getScores(graph).count(), equalTo(0L));
     }

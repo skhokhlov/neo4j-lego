@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class GraphTest {
     @Test
-    public void shouldAddEdgeToGraph() throws Exception {
+    public void shouldAddEdgeToGraph() {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
@@ -19,7 +19,7 @@ public class GraphTest {
     }
     
     @Test
-    public void shouldAddEdgeToGraphWithPipeline() throws Exception {
+    public void shouldAddEdgeToGraphWithPipeline() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(3,4);
@@ -28,7 +28,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldRemoveEdgeFromGraph() throws Exception {
+    public void shouldRemoveEdgeFromGraph() {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
@@ -37,7 +37,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldReturnStream() throws Exception {
+    public void shouldReturnStream() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(1,3);
@@ -52,7 +52,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldCheckThatGraphContainsVertex() throws Exception {
+    public void shouldCheckThatGraphContainsVertex() {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
@@ -60,14 +60,14 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldCheckThatGraphDoNotContainsVertex() throws Exception {
+    public void shouldCheckThatGraphDoNotContainsVertex() {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         assertFalse(graph.containsVertex(9999));
     }
 
     @Test
-    public void shouldCheckThatGraphContainsEdge() throws Exception {
+    public void shouldCheckThatGraphContainsEdge() {
         Graph graph = new Graph();
         Edge edge = new Edge(1,2);
         graph.addEdge(edge);
@@ -75,20 +75,20 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldCheckThatGraphDoNotContainsEdge() throws Exception {
+    public void shouldCheckThatGraphDoNotContainsEdge() {
         Graph graph = new Graph();
         Edge tempEdge = new Edge(2,3);
         assertFalse(graph.containsEdge(tempEdge));
     }
 
     @Test
-    public void shouldReturnParallelStream() throws Exception {
+    public void shouldReturnParallelStream() {
         Graph graph = new Graph();
         assertTrue(graph.getParallelStream().isParallel());
     }
 
     @Test
-    public void shouldReturnListWithAdjacentVertices() throws Exception {
+    public void shouldReturnListWithAdjacentVertices() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(1,3);
@@ -106,7 +106,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldReturnListWithOutgoingEdges() throws Exception {
+    public void shouldReturnListWithOutgoingEdges() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(1,3);
@@ -119,7 +119,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldReturnListWithIncidentEdges() throws Exception {
+    public void shouldReturnListWithIncidentEdges() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(2,1);
@@ -131,7 +131,7 @@ public class GraphTest {
     }
 
     @Test
-    public void shouldReturnCorrectVerticesCount() throws Exception {
+    public void shouldReturnCorrectVerticesCount() {
         Graph graph = new Graph();
         Edge edge1 = new Edge(1,2);
         Edge edge2 = new Edge(2,1);
