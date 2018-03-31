@@ -152,7 +152,7 @@ public class Betweenness {
                             prev.put(w, list);
 //                            predecessors.put(target, list);
                         }
-                        ((ArrayList<Integer>) prev.get(w)).add(nodeDequeued);
+                        prev.get(w).add(nodeDequeued);
 //                        ((ArrayList<Integer>)predecessors.get(target)).add(nodeDequeued);
                     }
                 }
@@ -170,7 +170,7 @@ public class Betweenness {
 //                    assert (numShortestPaths[poppedNode] != 0);
                     assert (numShortestPaths.get(poppedNode) != 0);
 //                    partialDependency = (numShortestPaths[(int) node] / (double) numShortestPaths[poppedNode]);
-                    partialDependency = numShortestPaths.get((int) node) / (double) numShortestPaths.get(poppedNode);
+                    partialDependency = numShortestPaths.get(node) / (double) numShortestPaths.get(poppedNode);
 //                    partialDependency *= (1.0) + delta[poppedNode];
                     partialDependency *= (1.0) + delta.getOrDefault(poppedNode, 0d);
 //                    delta[(int) node] += partialDependency;
