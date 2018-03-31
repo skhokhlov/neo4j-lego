@@ -1,21 +1,27 @@
 package lego;
 
 import org.junit.Test;
-
-import java.util.stream.Collectors;
-
 import static org.junit.Assert.*;
 
 public class RandomGraphTest {
 
-    @Test
-    public void getGraph() throws Exception {
-        Graph graph = new RandomGraph().withSize(10).getGraph();
-        assertEquals(10, graph.size());
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowNegativeSize() throws Exception {
-        Graph graph = new RandomGraph().withSize(-10).getGraph();
+        new RandomGraph().withSize(-10).getGraph();
+    }
+
+    @Test
+    public void shouldGenerateCorrectEdges() throws Exception {
+        final int size = 50;
+        Graph graph = new RandomGraph().withSize(size).getGraph();
+
+        assertEquals(size, graph.size());
+
+        graph.getStream().forEach(edge -> {
+            assertTrue(edge.getStart() < size);
+            assertTrue(edge.getStart() >= 0);
+            assertTrue(edge.getEnd() < size);
+            assertTrue(edge.getEnd() >= 0);
+        });
     }
 }
