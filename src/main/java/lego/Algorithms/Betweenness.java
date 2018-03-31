@@ -86,11 +86,11 @@ public class Betweenness {
 //    }
 
     private Stream<CentralityResult> calc(Graph graph) {
-
+        final int verticesCount = graph.getVerticesCount();
 
 //        PrimitiveIntObjectMap predecessors = Primitive.intObjectMap(); // It's like prev array
 //        Map<Integer, Double> map = new HashMap<>();
-        ConcurrentHashMap<Integer, Double> map1 = new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, Double> map1 = new ConcurrentHashMap<>(verticesCount);
 
 
 //        int processedNode = 0;
@@ -105,22 +105,20 @@ public class Betweenness {
             Queue<Integer> queue = new LinkedList<>();
 
 //            int numShortestPaths[] = new int[graph.getVerticesCount()]; // sigma
-            Map<Integer, Integer> numShortestPaths = new HashMap<>();
+            Map<Integer, Integer> numShortestPaths = new HashMap<>(verticesCount);
 //            int distance[] = new int[graph.getVerticesCount()]; // distance
-            Map<Integer, Integer> distance = new HashMap<>();
+            Map<Integer, Integer> distance = new HashMap<>(verticesCount);
 //            double delta[] = new double[graph.getVerticesCount()];
-            Map<Integer, Double> delta = new HashMap<>();
+            Map<Integer, Double> delta = new HashMap<>(verticesCount);
 
             Map<Integer, List<Integer>> prev = new HashMap<>();
 
-            stack.clear();
 //            Arrays.fill(numShortestPaths, 0);
 //            numShortestPaths[source] = 1;
             numShortestPaths.put(source, 1);
 //            Arrays.fill(distance, -1);
 //            distance[source] = 0;
             distance.put(source, 0);
-            queue.clear();
             queue.add(source);
 //            Arrays.fill(delta, 0);
 
@@ -130,11 +128,10 @@ public class Betweenness {
 
 //                int chunkIndex = sourceChunkStartingIndex[nodeDequeued];
 
-                for (long j : graph.getAdjacentVertices(nodeDequeued)) {
+                for (int w : graph.getAdjacentVertices(nodeDequeued)) {
 //                for (int j = 0; j < degree; j++) {
 //                    int target = relationshipTarget[chunkIndex + j];
 
-                    int w = (int) j;
 //                    if (distance[w] < 0) { // w = target
                     if (distance.getOrDefault(w, -1) < 0) {
                         queue.add(w);
@@ -172,7 +169,7 @@ public class Betweenness {
 //                    partialDependency = (numShortestPaths[(int) node] / (double) numShortestPaths[poppedNode]);
                     partialDependency = numShortestPaths.get(node) / (double) numShortestPaths.get(poppedNode);
 //                    partialDependency *= (1.0) + delta[poppedNode];
-                    partialDependency *= (1.0) + delta.getOrDefault(poppedNode, 0d);
+                    partialDependency *= 1d + delta.getOrDefault(poppedNode, 0d);
 //                    delta[(int) node] += partialDependency;
                     delta.put(node, delta.getOrDefault(node, 0d) + partialDependency);
                 }
@@ -184,17 +181,19 @@ public class Betweenness {
                     Object storedValue = map1.get(poppedNode);
                     if (storedValue != null) {
 //                        map1.put(poppedNode, ((double) storedValue) + delta[poppedNode]);
-                        map1.put(poppedNode, (double) storedValue + delta.getOrDefault(poppedNode, 0d));
+                        map1.put(poppedNode, (double) storedValue + delta.get(poppedNode));
                     } else {
 //                        map1.put(poppedNode, delta[poppedNode]);
-                        map1.put(poppedNode, delta.getOrDefault(poppedNode, 0d));
+                        map1.put(poppedNode, delta.get(poppedNode));
                     }
 //                    }
                 }
             }
         });
 
-        return map1.entrySet().stream().map((entry) -> new CentralityResult(entry.getKey(), entry.getValue()));
+        ArrayList<CentralityResult> res = new ArrayList<>(map1.size());
+        map1.forEach((integer, aDouble) -> res.add(new CentralityResult(integer, aDouble)));
+        return res.stream();
     }
 
 //    }
