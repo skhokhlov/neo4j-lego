@@ -1,10 +1,9 @@
 package lego.Algorithms;
 
-import lego.Edge;
 import lego.Example;
 import lego.Graph;
+import lego.RandomGraph;
 import lego.Results.CentralityResult;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.util.stream.Stream;
@@ -24,8 +23,9 @@ public class BetweennessTest {
     }
 
     @Test
-    public void shouldCalculateClosenessForEachVertex() throws Exception {
+    public void shouldCalculateBetweennessForEachVertex() throws Exception {
         Graph graph = example.getGraph();
+//        Graph graph = new RandomGraph().withSize(10).getGraph();
 
         Stream<CentralityResult> res = Stream.of(
 //                new CentralityResult(0, 0),
@@ -44,5 +44,11 @@ public class BetweennessTest {
     public void shouldWorkCorrectlyIfGraphIsEmpty() throws Exception {
         Graph graph = new Graph();
         assertThat(new Betweenness().getScores(graph).count(), equalTo(0L));
+    }
+
+    @Test
+    public void shouldWorkWithRandomGraph() throws Exception {
+        Graph graph = new RandomGraph().withSize(50).getGraph();
+        new Betweenness().getScores(graph);
     }
 }

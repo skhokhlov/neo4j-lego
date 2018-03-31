@@ -75,6 +75,10 @@ public class Betweenness {
         return calc(graph);
     }
 
+    public Stream<CentralityResult> getScoresOld(Graph graph) {
+        return graph.getVertexStream().map(vertex -> new CentralityResult(vertex, getVertexScore(graph, vertex)));
+    }
+
 //    public double getVertexScoreParallel(Graph graph, int vertexId) {
 //        int cores = Runtime.getRuntime().availableProcessors();
 //        ExecutorService executorService = Executors.newFixedThreadPool(cores);
@@ -100,20 +104,25 @@ public class Betweenness {
             Stack<Integer> stack = new Stack<>(); // S
             Queue<Integer> queue = new LinkedList<>();
 
-            int numShortestPaths[] = new int[graph.getVerticesCount()]; // sigma
-            int distance[] = new int[graph.getVerticesCount()]; // distance
-            double delta[] = new double[graph.getVerticesCount()];
+//            int numShortestPaths[] = new int[graph.getVerticesCount()]; // sigma
+            Map<Integer, Integer> numShortestPaths = new HashMap<>();
+//            int distance[] = new int[graph.getVerticesCount()]; // distance
+            Map<Integer, Integer> distance = new HashMap<>();
+//            double delta[] = new double[graph.getVerticesCount()];
+            Map<Integer, Double> delta = new HashMap<>();
 
             Map<Integer, List<Integer>> prev = new HashMap<>();
 
             stack.clear();
-            Arrays.fill(numShortestPaths, 0);
-            numShortestPaths[source] = 1;
-            Arrays.fill(distance, -1);
-            distance[source] = 0;
+//            Arrays.fill(numShortestPaths, 0);
+//            numShortestPaths[source] = 1;
+            numShortestPaths.put(source, 1);
+//            Arrays.fill(distance, -1);
+//            distance[source] = 0;
+            distance.put(source, 0);
             queue.clear();
             queue.add(source);
-            Arrays.fill(delta, 0);
+//            Arrays.fill(delta, 0);
 
             while (!queue.isEmpty()) { // algorithm stats here
                 int nodeDequeued = queue.remove();
@@ -126,13 +135,17 @@ public class Betweenness {
 //                    int target = relationshipTarget[chunkIndex + j];
 
                     int w = (int) j;
-                    if (distance[w] < 0) { // w = target
+//                    if (distance[w] < 0) { // w = target
+                    if (distance.getOrDefault(w, -1) < 0) {
                         queue.add(w);
-                        distance[w] = distance[nodeDequeued] + 1;
+//                        distance[w] = distance[nodeDequeued] + 1;
+                        distance.put(w, distance.getOrDefault(nodeDequeued, -1) + 1);
                     }
 
-                    if (distance[w] == (distance[nodeDequeued] + 1)) {
-                        numShortestPaths[w] = numShortestPaths[w] + numShortestPaths[nodeDequeued];
+                    if (distance.getOrDefault(w, -1) == distance.getOrDefault(nodeDequeued, -1) + 1) {
+//                    if (distance[w] == (distance[nodeDequeued] + 1)) {
+//                        numShortestPaths[w] = numShortestPaths[w] + numShortestPaths[nodeDequeued];
+                        numShortestPaths.put(w, numShortestPaths.getOrDefault(w, 0) + numShortestPaths.get(nodeDequeued));
                         if (!prev.containsKey(w)) {
 //                        if (!predecessors.containsKey(target)) {
                             ArrayList<Integer> list = new ArrayList<>();
@@ -153,28 +166,35 @@ public class Betweenness {
 //                ArrayList<Integer> list = (ArrayList<Integer>)predecessors.get(poppedNode);
 
                 for (int i = 0; list != null && i < list.size(); i++) {
-                    long node = list.get(i);
-                    assert (numShortestPaths[poppedNode] != 0);
-                    partialDependency = (numShortestPaths[(int) node] / (double) numShortestPaths[poppedNode]);
-                    partialDependency *= (1.0) + delta[poppedNode];
-                    delta[(int) node] += partialDependency;
+                    int node = list.get(i);
+//                    assert (numShortestPaths[poppedNode] != 0);
+                    assert (numShortestPaths.get(poppedNode) != 0);
+//                    partialDependency = (numShortestPaths[(int) node] / (double) numShortestPaths[poppedNode]);
+                    partialDependency = numShortestPaths.get((int) node) / (double) numShortestPaths.get(poppedNode);
+//                    partialDependency *= (1.0) + delta[poppedNode];
+                    partialDependency *= (1.0) + delta.getOrDefault(poppedNode, 0d);
+//                    delta[(int) node] += partialDependency;
+                    delta.put(node, delta.getOrDefault(node, 0d) + partialDependency);
                 }
-                if (poppedNode != source && delta[poppedNode] != 0.0) {
+                if(poppedNode != source && delta.getOrDefault(poppedNode, 0d) != 0d){
+//                if (poppedNode != source && delta[poppedNode] != 0.0) {
 //                    if (threadBatchNo == -1) {
 //                        betweennessCentrality[poppedNode] = betweennessCentrality[poppedNode] + delta[poppedNode];
 //                    } else {
                     Object storedValue = map1.get(poppedNode);
                     if (storedValue != null) {
-                        map1.put(poppedNode, ((double) storedValue) + delta[poppedNode]);
+//                        map1.put(poppedNode, ((double) storedValue) + delta[poppedNode]);
+                        map1.put(poppedNode, (double) storedValue + delta.getOrDefault(poppedNode, 0d));
                     } else {
-                        map1.put(poppedNode, delta[poppedNode]);
+//                        map1.put(poppedNode, delta[poppedNode]);
+                        map1.put(poppedNode, delta.getOrDefault(poppedNode, 0d));
                     }
 //                    }
                 }
             }
         });
 
-        return map1.entrySet().stream().map((entry)-> new CentralityResult(entry.getKey(), entry.getValue()));
+        return map1.entrySet().stream().map((entry) -> new CentralityResult(entry.getKey(), entry.getValue()));
     }
 
 //    }
