@@ -1,6 +1,5 @@
 package lego.Algorithms;
 
-import lego.Example;
 import lego.Graph;
 import lego.RandomGraph;
 import org.openjdk.jmh.annotations.*;
@@ -13,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class BetweennessBenchmark {
-    static Graph graph = new RandomGraph().withSize(100).getGraph();
+public class CentralityBenchmark {
+    static Graph graph = new RandomGraph().withSize(500).getGraph();
 
     @Benchmark
     public void bench(){
@@ -26,9 +25,14 @@ public class BetweennessBenchmark {
         new Betweenness().getScoresOld(graph);
     }
 
+    @Benchmark
+    public void bench3(){
+        new Closeness().getScores(graph);
+    }
+
     public static void main() throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(".*" + BetweennessBenchmark.class.getSimpleName() + ".*")
+                .include(".*" + CentralityBenchmark.class.getSimpleName() + ".*")
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)
