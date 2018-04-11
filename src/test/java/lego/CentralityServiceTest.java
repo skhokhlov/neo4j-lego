@@ -23,7 +23,7 @@ public class CentralityServiceTest {
             .withConfig(LegacySslPolicyConfig.certificates_directory.name(),
                     getRelativePath(getSharedTestTemporaryFolder(), LegacySslPolicyConfig.certificates_directory))
             .withConfig( ServerSettings.script_sandboxing_enabled.name(), Settings.TRUE )
-            .withExtension("/centrality/helloworld2/", CentralityService.class)
+            .withExtension("/centrality/helloworld2", CentralityService.class)
             .withExtension("/centrality/closeness", CentralityService.class);
 
     @Test
@@ -35,7 +35,7 @@ public class CentralityServiceTest {
     @Test
     public void shouldRetrieveCentralityService() {
         HTTP.Response response = HTTP.GET(neo4j.httpsURI().resolve(
-                "/centrality/helloworld2/"
+                "/centrality/helloworld2"
         ).toString());
 
         assertEquals("0", response.content());

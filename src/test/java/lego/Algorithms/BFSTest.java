@@ -13,18 +13,18 @@ public class BFSTest {
     @Test
     public void getPathLength() {
         Graph graph = example.getGraph();
-        assertThat(new BFS(graph).getPathLength(1, 3), equalTo(2));
-        assertThat(new BFS(graph).getPathLength(1, 1), equalTo(0));
+        assertThat(new BFS().getPathLength(graph,1, 3), equalTo(2));
+        assertThat(new BFS().getPathLength(graph, 1, 1), equalTo(0));
     }
 
     @Test
     public void findAllShortestPaths() {
         Graph graph = example.getGraph();
-        assertThat(new BFS(graph).findAllShortestPaths(0, 0).count(), equalTo(0L));
-        assertThat(new BFS(graph).findAllShortestPaths(3, 1).count(), equalTo(0L));
-        assertThat(new BFS(graph).findAllShortestPaths(0, 1).count(), equalTo(1L));
-        assertThat(new BFS(graph).findAllShortestPaths(0, 3).count(), equalTo(1L));
-        assertThat(new BFS(graph).findAllShortestPaths(1, 3).count(), equalTo(2L));
+        assertThat(new BFS().findAllShortestPaths(graph,0, 0).count(), equalTo(0L));
+        assertThat(new BFS().findAllShortestPaths(graph,3, 1).count(), equalTo(0L));
+        assertThat(new BFS().findAllShortestPaths(graph,0, 1).count(), equalTo(1L));
+        assertThat(new BFS().findAllShortestPaths(graph,0, 3).count(), equalTo(1L));
+        assertThat(new BFS().findAllShortestPaths(graph,1, 3).count(), equalTo(2L));
     }
 
 }

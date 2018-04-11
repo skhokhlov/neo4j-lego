@@ -24,7 +24,7 @@ public class Betweenness {
             throw new IllegalArgumentException("Graph do not contains this vertex");
         }
 
-        BFS bfs = new BFS(graph);
+        BFS bfs = new BFS();
 
         double betweenness = 0;
 
@@ -38,7 +38,7 @@ public class Betweenness {
                     continue;
                 }
 
-                Supplier<Stream<List<Integer>>> paths = () -> bfs.findAllShortestPaths(s, t);
+                Supplier<Stream<List<Integer>>> paths = () -> bfs.findAllShortestPaths(graph, s, t);
 //                Supplier<Stream<HashSet<Long>>> paths = () -> bfs.getAllShortestPaths(s, t);
                 long allPaths = paths.get().count();
 

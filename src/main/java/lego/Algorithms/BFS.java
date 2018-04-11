@@ -8,11 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BFS {
-    private Graph graph;
-
-    BFS(Graph graph) {
-        this.graph = graph;
-    }
 
     /**
      * Calculate length of shortest path between vertices using breadth-first search algorithm.
@@ -22,7 +17,7 @@ public class BFS {
      * @param target This is target vertex
      * @return Length of shortest path between vertices
      */
-    public int getPathLength(int start, int target) {
+    public int getPathLength(Graph graph, int start, int target) {
         if (start == target) {
             return 0;
         }
@@ -59,7 +54,7 @@ public class BFS {
      * @param target This is target vertex
      * @return Stream of List with shortest paths
      */
-    public Stream<List<Integer>> findAllShortestPaths(int start, int target) {
+    public Stream<List<Integer>> findAllShortestPaths(Graph graph, int start, int target) {
         if (start == target) {
             return Stream.empty();
         }
