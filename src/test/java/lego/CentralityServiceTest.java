@@ -1,5 +1,6 @@
 package lego;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.neo4j.harness.junit.Neo4jRule;
@@ -33,6 +34,7 @@ public class CentralityServiceTest {
     }
 
     @Test
+    @Ignore
     public void shouldRetrieveCentralityService() {
         HTTP.Response response = HTTP.GET(neo4j.httpsURI().resolve(
                 "/centrality/helloworld2"
