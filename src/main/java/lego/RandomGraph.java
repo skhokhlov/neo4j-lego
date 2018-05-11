@@ -36,7 +36,7 @@ public class RandomGraph {
             size = random.nextInt();
         }
 
-        int vertices = (int) Math.pow(size, 2);
+        final int vertices = (int) Math.pow(size, 2);
 
         for (int i = 0; i < Math.pow(size, 3); i++) {
             this.graph.addEdge(new Edge(random.nextInt(vertices), random.nextInt(vertices)));
