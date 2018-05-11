@@ -48,7 +48,7 @@ public class BetweennessTest {
 
     @Test
     public void shouldWorkWithRandomGraph() {
-        Graph graph = new RandomGraph().withSize(50).getGraph();
+        Graph graph = new RandomGraph().withSize(5).getGraph();
         new Betweenness().getScores(graph);
     }
 }

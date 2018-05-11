@@ -12,7 +12,7 @@ public class RandomGraphTest {
 
     @Test
     public void shouldGenerateCorrectEdges() {
-        final int size = 50;
+        final int size = 5;
         final int vertices = (int) Math.pow(size, 2);
         Graph graph = new RandomGraph().withSize(size).getGraph();
 
