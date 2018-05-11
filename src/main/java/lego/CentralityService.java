@@ -1,23 +1,23 @@
 package lego;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.logging.Log;
 import org.neo4j.string.UTF8;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.io.IOException;
 
-@Path("/centrality")
+@Path("/centrality23")
 public class CentralityService {
-    private final GraphDatabaseService db;
+    private final GraphDatabaseService database;
 
-    public CentralityService(@Context GraphDatabaseService db) {
-        this.db = db;
+    public CentralityService( @Context GraphDatabaseService database )
+    {
+        this.database = database;
     }
 
     @GET
@@ -28,8 +28,9 @@ public class CentralityService {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/helloworld2/")
-    public Response helloworld2() {
+    @Path("/helloworld2")
+    public Response helloworld2(@Context GraphDatabaseService db, @Context Log log) throws IOException {
+        log.info("Hello world");
         return Response.ok().entity(UTF8.encode("Str")).build();
     }
 
