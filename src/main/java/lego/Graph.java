@@ -121,6 +121,8 @@ public class Graph {
     /**
      * Make list of adjacent vertices by outgoing edges
      *
+     * One-thread version faster than multi-thread on 600%.
+     *
      * @param vertexId This is vertex id
      * @return List with adjacent vertices
      */

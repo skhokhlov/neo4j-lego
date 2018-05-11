@@ -6,6 +6,9 @@ import lego.Results.CentralityResult;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 public class Closeness {
@@ -59,18 +62,24 @@ public class Closeness {
     }
 
     /**
+     * Incremental algorithm for closeness centrality
      * https://pdfs.semanticscholar.org/7d1b/c639258ad49af9e51199902313c3a2149c63.pdf
-     * @param graph
-     * @return
+     *
+     * ConcurrentHashMap is faster then CopyOnWriteArrayList for 66%.
+     * @param graph This is graph for calculations
+     * @return Stream of {@link CentralityResult} with scores
      */
     private Stream<CentralityResult> calc(Graph graph) {
         final int verticesCount = graph.getVerticesCount();
+        final int verticesCountHalf = (int) (verticesCount * 0.5);
         ConcurrentHashMap<Integer, Double> map1 = new ConcurrentHashMap<>(verticesCount);
+//        Map<Integer, Double> map1 = new ConcurrentHashMap<>();
+//        Map<Integer, Double> map1 = new ConcurrentSkipListMap<>();
 
         graph.getParallelVertexStream().forEach((source) -> {
             Queue<Integer> queue = new LinkedList<>(); // Q
-            Map<Integer, Integer> distance = new HashMap<>(verticesCount); // d
-            Map<Integer, Integer> far = new HashMap<>(verticesCount);
+            Map<Integer, Integer> distance = new HashMap<>(verticesCountHalf); // d
+            Map<Integer, Integer> far = new HashMap<>(verticesCountHalf);
 
             queue.add(source);
             distance.put(source, 0);
@@ -91,7 +100,7 @@ public class Closeness {
             map1.put(source, 1 / (double) far.get(source));
         });
 
-        ArrayList<CentralityResult> res = new ArrayList<>(map1.size());
+        ArrayList<CentralityResult> res = new ArrayList<>(verticesCount);
         map1.forEach((integer, aDouble) -> res.add(new CentralityResult(integer, aDouble)));
         return res.stream();
     }

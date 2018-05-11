@@ -10,7 +10,7 @@ public class RandomGraph {
     private int size = -1;
 
     /**
-     * Set size of a random graph
+     * Set size of a random graph: size^2 nodes, size^3 edges.
      *
      * @param size This is size of the graph
      * @return Returns this
@@ -36,8 +36,10 @@ public class RandomGraph {
             size = random.nextInt();
         }
 
-        for (int i = 0; i < size; i++) {
-            this.graph.addEdge(new Edge(random.nextInt(size), random.nextInt(size)));
+        int vertices = (int) Math.pow(size, 2);
+
+        for (int i = 0; i < Math.pow(size, 3); i++) {
+            this.graph.addEdge(new Edge(random.nextInt(vertices), random.nextInt(vertices)));
         }
 
         return this.graph;

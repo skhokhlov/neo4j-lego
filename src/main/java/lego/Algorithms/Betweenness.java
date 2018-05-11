@@ -87,6 +87,7 @@ public class Betweenness {
 
     private Stream<CentralityResult> calc(Graph graph) {
         final int verticesCount = graph.getVerticesCount();
+        final int verticesCountHalf = (int) (verticesCount * 0.5);
 
 //        PrimitiveIntObjectMap predecessors = Primitive.intObjectMap(); // It's like prev array
 //        Map<Integer, Double> map = new HashMap<>();
@@ -105,11 +106,11 @@ public class Betweenness {
             Queue<Integer> queue = new LinkedList<>();
 
 //            int numShortestPaths[] = new int[graph.getVerticesCount()]; // sigma
-            Map<Integer, Integer> numShortestPaths = new HashMap<>(verticesCount);
+            Map<Integer, Integer> numShortestPaths = new HashMap<>(verticesCountHalf);
 //            int distance[] = new int[graph.getVerticesCount()]; // distance
-            Map<Integer, Integer> distance = new HashMap<>(verticesCount);
+            Map<Integer, Integer> distance = new HashMap<>(verticesCountHalf);
 //            double delta[] = new double[graph.getVerticesCount()];
-            Map<Integer, Double> delta = new HashMap<>(verticesCount);
+            Map<Integer, Double> delta = new HashMap<>(verticesCountHalf);
 
             Map<Integer, List<Integer>> prev = new HashMap<>();
 
