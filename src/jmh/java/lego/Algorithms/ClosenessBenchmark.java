@@ -25,4 +25,14 @@ public class ClosenessBenchmark {
     public Object closeness(){
        return new Closeness().getScores(graph).count();
     }
+
+    @Benchmark
+    public Object closenessTwo(){
+        return new Closeness().getScoresTwo(graph).count();
+    }
+
+    @Benchmark
+    public Object closenessOld(){
+        return new Closeness().getScoresOld(graph).count();
+    }
 }
