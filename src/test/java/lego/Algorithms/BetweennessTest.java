@@ -6,6 +6,7 @@ import lego.RandomGraph;
 import lego.Results.CentralityResult;
 import org.junit.Test;
 
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -49,6 +50,6 @@ public class BetweennessTest {
     @Test
     public void shouldWorkWithRandomGraph() {
         Graph graph = new RandomGraph().withSize(5).getGraph();
-        new Betweenness().getScores(graph);
+        assertNotNull(new Betweenness().getScores(graph));
     }
 }

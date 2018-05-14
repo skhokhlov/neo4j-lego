@@ -57,7 +57,6 @@ public class Closeness {
      * @return Stream of {@link CentralityResult} with scores
      */
     public Stream<CentralityResult> getScores(Graph graph) {
-//        return graph.getParallelVertexStream().map(vertex -> new CentralityResult(vertex, getVertexScore(graph, vertex)));
         return calc(graph);
     }
 
