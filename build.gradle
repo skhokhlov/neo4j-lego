@@ -6,6 +6,7 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'me.champeau.gradle.jmh'
 
 group = 'org.neo4j.lego'
 version = '1.0.0-SNAPSHOT'
@@ -97,7 +98,7 @@ test {
 }
 
 jmh {
-    include = ['lego\\.Algorithms\\.*Benchmark.*', 'lego\\.*Benchmark.*'] // include pattern (regular expression) for benchmarks to be executed
+    include = ['jmh'] // include pattern (regular expression) for benchmarks to be executed
 //    exclude = ['some regular expression'] // exclude pattern (regular expression) for benchmarks to be executed
     iterations = 5 // Number of measurement iterations to do.
 //    benchmarkMode = ['ss']
@@ -123,7 +124,7 @@ jmh {
 //    threadGroups = [2,3,4] //Override thread group distribution for asymmetric benchmarks.
 //    timeout = '1s' // Timeout for benchmark iteration.
 //    timeUnit = 'ms' // Output time unit. Available time units are: [m, s, ms, us, ns].
-//    verbosity = 'NORMAL' // Verbosity mode. Available modes are: [SILENT, NORMAL, EXTRA]
+    verbosity = 'EXTRA' // Verbosity mode. Available modes are: [SILENT, NORMAL, EXTRA]
 //    warmup = '1s' // Time to spend at each warmup iteration.
 //    warmupBatchSize = 2 // Warmup batch size: number of benchmark method calls per operation.
 //    warmupForks = 1 // How many warmup forks to make for a single benchmark. 0 to disable warmup forks.
