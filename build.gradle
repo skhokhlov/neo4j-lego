@@ -23,7 +23,7 @@ idea {
 }
 
 ext {
-    neo4jVersion = '3.3.3'
+    neo4jVersion = '3.2.6'
 }
 
 repositories {

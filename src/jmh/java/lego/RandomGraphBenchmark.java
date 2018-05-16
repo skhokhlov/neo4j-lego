@@ -15,6 +15,6 @@ public class RandomGraphBenchmark {
 
     @Benchmark
     public Object graph() {
-        return new RandomGraph().withSize(20).getGraph().size();
+        return new RandomGraph().withSize(50).getGraph().size();
     }
 }
