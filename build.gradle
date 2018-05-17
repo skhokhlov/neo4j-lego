@@ -98,7 +98,7 @@ test {
 }
 
 jmh {
-    include = ['jmh'] // include pattern (regular expression) for benchmarks to be executed
+    include = ['lego\\.*Benchmark.*', 'lego\\.Algorithms\\.*Benchmark.*'] // include pattern (regular expression) for benchmarks to be executed
 //    exclude = ['some regular expression'] // exclude pattern (regular expression) for benchmarks to be executed
     iterations = 5 // Number of measurement iterations to do.
 //    benchmarkMode = ['ss']
